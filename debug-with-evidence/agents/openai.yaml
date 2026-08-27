@@ -1,0 +1,4 @@
+interface:
+  display_name: "Debug with Evidence"
+  short_description: "Diagnose, approve, fix, verify, and open a PR"
+  default_prompt: "Use $debug-with-evidence to diagnose this bug, obtain my approval of the diagnosis and fix plan, implement the fix, and open a verified ready-for-review PR."

@@ -112,3 +112,22 @@ Not run yet.
 ## Regression results
 
 Not run yet.
+
+## Structural validation
+
+- Validator attempt 1 (repository-local `.tmp-debug-evidence-uv-cache`): exit 1. The sandbox blocked the PyPI dependency fetch: `Failed to fetch: https://pypi.org/simple/pyyaml/` with socket-access error 10013. No global Python state was changed.
+- Validator attempt 2 (narrow approved rerun using the same repository-local cache): exit 0; final result: `Skill is valid!` (uv emitted only its `--no-project` warning).
+- UTF-8 scan: instructional files `SKILL.md`, `agents/openai.yaml`, `references/diagnosis.md`, `references/fix-plan.md`, and `references/pr-description.md` each contain 0 non-ASCII characters. `acceptance-scenarios.md` has 3 matching lines and 5 non-ASCII characters; the existing RED quotations are preserved.
+- Reserved-token scan: 0 matches.
+- Exact inventory:
+
+```text
+debug-with-evidence/SKILL.md
+debug-with-evidence/agents/openai.yaml
+debug-with-evidence/references/acceptance-scenarios.md
+debug-with-evidence/references/diagnosis.md
+debug-with-evidence/references/fix-plan.md
+debug-with-evidence/references/pr-description.md
+```
+
+- Cache cleanup: resolved `C:\\Users\\JMann\\Projects\\mine\\agent-skills\\.worktrees\\debug-with-evidence\\.tmp-debug-evidence-uv-cache`, confirmed it was inside the worktree, removed only that directory, and confirmed `Test-Path` is `False`.
