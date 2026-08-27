@@ -128,3 +128,25 @@ Before claiming that a PR was created, remote evidence must confirm the PR exist
 - Task 4 reserved-token scan: 0 matches.
 - Task 4 file inventory: `SKILL.md`, `agents/openai.yaml`, `references/acceptance-scenarios.md`, `references/implementation-plan.md`, `references/pr-description.md`, and `references/product-brief.md` only.
 - Task 4 `git diff --check`: exit 0.
+
+## Independent review
+
+- Initial independent review at `d4cde2af899eaf702d7d609fd7858e9085274f65`: `CHANGES REQUIRED` (0 Critical, 2 Important, 2 Minor). It identified I-1, the material-change artifact/data-model approval gap, and I-2, the circular pre-review clean conclusion.
+- I-1: addressed in `c5ae281a5b4c9b915760465871eb171c46619fa5` (`fix: close material-change approval gap`). The core and plan contract now name data-model changes and require both updated final artifacts plus fresh direct approval; the PR record requires that approval checkpoint. The original material-change rerun selected `C` and stayed blocked until both artifacts were directly approved. The focused data-model regression selected `C`, requires both updated artifacts and fresh direct approval, and explicitly prohibits migration code beforehand.
+- I-2: addressed in the Task 5 scratch review package by relabeling it pre-review background with no independent verdict; the fresh independent review establishes the result.
+- M-1: addressed in `5fe2dc5e17c07212415ddfc9e7be10a80d1d12a6` (`docs: mark product skill design approved`) by changing the controlling design status to `approved`.
+- M-2: addressed in the Task 5 scratch review package. The UTF-8 evidence is now measured as 2 matching lines containing 4 U+2014 characters, with 2 characters on each line; the preserved RED quotations were not normalized.
+- Scoped post-fix independent re-review at `c5ae281a5b4c9b915760465871eb171c46619fa5`: `APPROVED` (0 open Critical, 0 open Important, 0 open Minor). It found no new contradiction, authorization gap, false-success transition, verification weakening, portability issue, or merge-equivalent authorization.
+
+## Final verification
+
+- Isolated sandbox validator attempt: exit 1 after three retries while fetching `pyyaml` from `https://pypi.org/simple/pyyaml/`; exact network failure ended with `tcp connect error: An attempt was made to access a socket in a way forbidden by its access permissions. (os error 10013)`.
+- Authoritative narrow-escalated validator rerun after this review record: exit 0; final output: `Skill is valid!` (with `uv` warnings only).
+- Validator cache: intended repository-local path `C:\Users\JMann\Projects\mine\agent-skills\.worktrees\build-from-product-idea\.tmp-build-product-uv-cache`; cleanup confirmed `cache_exists_after=False`.
+- Instructional-file non-ASCII character scan: 0 across `SKILL.md`, `agents/openai.yaml`, `references/product-brief.md`, `references/implementation-plan.md`, and `references/pr-description.md`.
+- Intentional RED-evidence scan: 2 matching lines containing 4 U+2014 characters, with 2 characters on each line; the quoted evidence remains unchanged.
+- Established four-pattern reserved-token scan: 0 matches.
+- Exact tracked package inventory: `SKILL.md`, `agents/openai.yaml`, `references/acceptance-scenarios.md`, `references/implementation-plan.md`, `references/pr-description.md`, and `references/product-brief.md` only.
+- Line counts: `SKILL.md` 64; `agents/openai.yaml` 4; `references/acceptance-scenarios.md` 152; `references/implementation-plan.md` 45; `references/pr-description.md` 37; `references/product-brief.md` 41.
+- `git diff --check`: exit 0.
+- Final staged-scope check: only `build-from-product-idea/references/acceptance-scenarios.md` is staged; every staged path begins with `build-from-product-idea/`.
