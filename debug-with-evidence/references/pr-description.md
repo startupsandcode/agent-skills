@@ -1,6 +1,6 @@
-# PR description contract
+# PR Description Contract
 
-Use this description for the one non-draft ready-for-review PR after complete verification. Preserve the durable debugging record. Do not fabricate an approval quote or timestamp. `Deviations` must say `None` when empty and cannot hide material drift.
+Use this description for the one non-draft ready-for-review PR after complete verification. Preserve the durable debugging record. Do not fabricate an approval quote or timestamp. `Deviations` must say `None` when empty and cannot hide material drift. Create the PR with the complete pre-creation record, fetch its identity, update only `Remote verification` with actual remote facts, then refetch the final PR.
 
 ## Summary
 
@@ -47,4 +47,4 @@ None
 - Head SHA: <remote head commit SHA>
 - Non-draft state: <confirmed non-draft>
 - Title: <remote PR title>
-- Description: <confirmed remote PR description or durable record reference>
+- Description: <confirmed final remote body matches this intended durable description; do not copy the description into itself>

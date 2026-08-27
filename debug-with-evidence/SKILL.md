@@ -30,7 +30,7 @@ Use the positive output contract in [references/diagnosis.md](references/diagnos
 
 ## 4. Produce the fix plan
 
-Use the positive output contract in [references/fix-plan.md](references/fix-plan.md). Base the smallest causal fix and exact verification commands on repository evidence. Prefer automated regression evidence that fails for the diagnosed reason before implementation and passes afterward. Use equivalent evidence only when automation has a genuine barrier; document the barrier and repeatable before/after evidence.
+Use the positive output contract in [references/fix-plan.md](references/fix-plan.md). Base the smallest causal fix and exact verification commands on repository evidence. Before approval, record the observed failing-before result and the exact planned post-fix command/action with its expected claim. After implementation, record the actual passing result in verification and the PR record. Use equivalent evidence only when automation has a genuine barrier; before approval, document the barrier, observed failing-before evidence, and planned post-fix command/action and expected claim.
 
 ## 5. Obtain explicit approval
 
@@ -38,7 +38,7 @@ Present the complete final diagnosis and complete final fix plan together. Stop 
 
 ## 6. Implement without diagnostic drift
 
-After approval, implement only the smallest fix described by the approved causal plan. If evidence requires a material change, stop as **Blocked**, show the evidence, update both final artifacts, and obtain fresh direct approval before continuing. A material change includes changed root cause or causal chain; scope; user-visible behavior; architecture or interfaces; dependencies, integrations, or permissions; data handling or data model; migration or rollout; security or privacy; fix strategy or risk; or diagnostics becoming production behavior.
+After approval, implement only the smallest fix described by the approved causal plan. If evidence requires a material change, stop as **Blocked**, show the evidence, update both final artifacts, and obtain fresh direct approval before continuing. A material change includes changed root cause or causal chain; scope or acceptance behavior; user-visible behavior; architecture or interfaces; dependencies, integrations, or permissions; data handling or data model; migration or rollout; security or privacy; fix strategy or risk; or diagnostics becoming production behavior.
 
 ## 7. Verify the fix
 
@@ -46,7 +46,7 @@ Confirm all applicable claims: regression evidence fails before and passes after
 
 ## 8. Create and remotely verify the PR
 
-Only after complete verification, push intended commits and create one non-draft ready-for-review PR against the intended base. Use [references/pr-description.md](references/pr-description.md) to preserve the durable record. Fetch the PR from the remote service and verify its repository, PR number, base, head, head SHA, non-draft state, title, and description. A successful creation command is insufficient. If push, creation, or remote verification fails or differs, report **Blocked**, preserve local work, and do not blindly create a duplicate PR. Stop at the verified PR.
+Only after complete verification, push intended commits and create one non-draft ready-for-review PR against the intended base with the complete pre-creation durable record. Use [references/pr-description.md](references/pr-description.md). Fetch the PR identity, update its Remote verification section with the actual repository, number, base, head, head SHA, non-draft state, and title, then refetch and verify the final full body and every identity/state fact. A successful creation command or initial fetch is insufficient. If push, creation, update, or remote verification fails or differs, report **Blocked**, preserve local work, and do not blindly create a duplicate PR. Stop at the verified PR.
 
 ## Terminal-state report
 

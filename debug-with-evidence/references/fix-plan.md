@@ -1,4 +1,4 @@
-# Fix-plan contract
+# Fix Plan Contract
 
 Use this artifact with the final diagnosis for direct approval. Ground every change and command in repository evidence. Use `None - <reasoning>` for every non-applicable item.
 
@@ -23,9 +23,9 @@ Use this artifact with the final diagnosis for direct approval. Ground every cha
 ## Regression evidence
 
 - Automated test: `<exact command>`
-- Before implementation: <failure for the diagnosed reason>
-- After implementation: <passing result>
-- Equivalent evidence, if automation has a genuine barrier: <barrier, reasoning, and repeatable before/after commands/actions and results>
+- Observed before implementation: <actual failure for the diagnosed reason>
+- Planned post-fix command and expected claim: `<exact command>` - <expected passing claim; actual result is recorded only after implementation in verification and the PR record>
+- Equivalent evidence, if automation has a genuine barrier: <barrier and reasoning; observed failing-before command/action and actual result; planned post-fix command/action and expected claim. Record the actual post-fix result only after implementation in verification and the PR record.>
 
 ## Error paths and edge cases
 
@@ -57,7 +57,7 @@ Use this artifact with the final diagnosis for direct approval. Ground every cha
 
 ## Material-change triggers
 
-Stop as **Blocked**, update the final diagnosis and final fix plan, and obtain fresh direct approval if any of these changes: root cause or causal chain; scope; user-visible behavior; architecture or interfaces; dependencies, integrations, or permissions; data handling or data model; migration or rollout; security or privacy; fix strategy or risk; or diagnostics becoming production behavior.
+Stop as **Blocked**, update the final diagnosis and final fix plan, and obtain fresh direct approval if any of these changes: root cause or causal chain; scope or acceptance behavior; user-visible behavior; architecture or interfaces; dependencies, integrations, or permissions; data handling or data model; migration or rollout; security or privacy; fix strategy or risk; or diagnostics becoming production behavior.
 
 ## Approval-ready check
 

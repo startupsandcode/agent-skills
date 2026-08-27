@@ -1,4 +1,4 @@
-# Diagnosis contract
+# Diagnosis Contract
 
 Use this artifact to present the approval-ready diagnosis. Record exact commands/actions and actual outputs. Label each claim as Fact, Inference, or Unknown. Do not claim causality from a stack location, correlation, or workaround.
 
