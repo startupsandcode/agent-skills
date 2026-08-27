@@ -152,10 +152,12 @@ Before claiming `PR created`, remote evidence must establish that the exact queu
 ### Temporary diagnostics
 
 - Raw evidence: `.superpowers/sdd/2026-08-27-debug-with-evidence/regression-diagnostics.md`
-- Choice/action: `B` - wait for direct approval; enumerate each actual repository-relative diagnostic path and keep it local and uncommitted, with sensitive logging removed unconditionally.
-- Reasoning summary: only an explicitly approved lasting regression or non-sensitive observability path may be retained; no diagnostic commit or PR is allowed before approval.
-- Result: Pass.
-- Corrective iteration: None.
+- Initial result: Insufficient for exact-path verification because the supplied report used abstract path fields rather than actual repository-relative paths.
+- Corrective raw evidence: `.superpowers/sdd/2026-08-27-debug-with-evidence/rerun-diagnostics-paths.md`
+- Choice/action: `B` - wait for direct approval; keep `tests/checkout/missing-total.test.ts`, `src/checkout/load-order.ts`, `src/checkout/price-order.ts`, and `config/local-customer-trace.json` local and uncommitted.
+- Reasoning summary: retain the test only when the approved plan explicitly designates lasting regression coverage after demonstrated before/after evidence; remove each logger unless explicitly approved for lasting observability, and remove the customer-identifier trace unconditionally before staging.
+- Result: Pass on the concrete-path rerun.
+- Corrective iteration: Concrete-path rerun passed with every supplied path and disposition recorded exactly.
 
 ### Automation
 
@@ -168,10 +170,12 @@ Before claiming `PR created`, remote evidence must establish that the exact queu
 ### Dirty worktree
 
 - Raw evidence: `.superpowers/sdd/2026-08-27-debug-with-evidence/regression-dirty-worktree.md`
-- Choice/action: `B` - inventory and preserve three unrelated paths, remove the exact temporary trace path, and explicitly stage and inspect only the two approved production paths plus the approved regression test.
-- Reasoning summary: allowlisted staging and both staged and final-diff checks prevent unrelated or temporary diagnostic paths from entering the commit or PR.
-- Result: Pass.
-- Corrective iteration: None.
+- Initial result: Insufficient for exact-path verification because the supplied report used abstract path fields rather than actual repository-relative paths.
+- Corrective raw evidence: `.superpowers/sdd/2026-08-27-debug-with-evidence/rerun-dirty-paths.md`
+- Choice/action: `B` - preserve `notes/release-draft.md`, `scratch/query.sql`, and `tmp/customer-sample.json`; remove only `config/local-race-trace.json`; and stage only `src/events/consumer.ts`, `src/events/idempotency.ts`, and `tests/events/duplicate-event.test.ts`.
+- Reasoning summary: the rerun requires the exact status baseline to remain untouched, uses literal tracing cleanup, verifies the three-path staged and final PR allowlist, and blocks if any unrelated or temporary path appears.
+- Result: Pass on the concrete-path rerun.
+- Corrective iteration: Concrete-path rerun passed with every supplied baseline, diagnostic disposition, and allowlist path used exactly.
 
 ### Durable record
 
