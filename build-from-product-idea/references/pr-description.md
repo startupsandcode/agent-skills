@@ -14,7 +14,7 @@ Include the approved implementation plan. Link to a committed repository-native 
 
 ## Approval checkpoint
 
-Record that direct approval of the final brief and final plan occurred in the current session. Do not fabricate a quotation or timestamp.
+Record that direct approval of the final brief and final plan occurred in the current session. After a material change, record fresh direct approval in the current session of both the updated final product brief and updated final implementation plan before implementation continued. Do not fabricate a quotation or timestamp.
 
 ## Actual changes
 

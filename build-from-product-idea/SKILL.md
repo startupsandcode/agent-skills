@@ -38,7 +38,7 @@ Present the final product brief and final implementation plan together, then sto
 
 Implement the approved plan using repository conventions, test-first behavior where applicable, and the smallest coherent changes. Minor details may proceed only when they preserve approved scope, user-visible behavior, architecture and interfaces, dependencies, integrations and permissions, data handling, migrations and rollout, and security and privacy posture.
 
-Stop as `Blocked` before any material change. Material changes include scope or acceptance criteria, user-visible behavior, architecture or interfaces, dependencies, integrations or permissions, data handling, migrations or rollout, and security or privacy posture. Explain the evidence, update the affected brief and/or plan, and obtain fresh explicit approval before continuing.
+Stop as `Blocked` before any material change. Material changes include scope or acceptance criteria, user-visible behavior, architecture or interfaces, dependencies, integrations or permissions, data handling or data model, migrations or rollout, and security or privacy posture. Explain the evidence, update both the final product brief and final implementation plan, and obtain fresh direct approval before continuing.
 
 ## Verify final implementation
 

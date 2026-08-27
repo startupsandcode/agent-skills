@@ -38,8 +38,8 @@ Provide exact, runnable commands for all relevant checks, including acceptance v
 
 ## Material-change triggers
 
-Stop for updated artifacts and fresh explicit approval if implementation would change scope; user-visible behavior; architecture or interfaces; dependencies, integrations, or permissions; data handling; migrations or rollout; or security or privacy posture.
+Stop before continuing if implementation would change scope; user-visible behavior; architecture or interfaces; dependencies, integrations, or permissions; data handling or data model; migrations or rollout; or security or privacy posture. Update both the final product brief and final implementation plan, then obtain fresh direct approval before continuing.
 
 ## Approval-ready check
 
-The plan is approval-ready only when it is grounded in actual repository evidence, specifies affected files and ordered changes, supplies exact verification commands, and explains all applicable delivery risks. Dependencies, permissions, migrations, and rollout must each be covered separately; for every individually non-applicable item, state `None` with reasoning. Present this final plan with the final product brief and wait for direct approval before implementation.
+The plan is approval-ready only when it is grounded in actual repository evidence, specifies affected files and ordered changes, supplies exact verification commands, and explains all applicable delivery risks. Dependencies, permissions, migrations, and rollout must each be covered separately; for every individually non-applicable item, state `None` with reasoning. Present this final plan with the final product brief and wait for direct approval before implementation. After a material change, the updated final plan is approval-ready only with the updated final product brief and fresh direct approval of both artifacts.
