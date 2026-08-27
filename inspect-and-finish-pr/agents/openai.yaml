@@ -1,0 +1,4 @@
+interface:
+  display_name: "Inspect and Finish PR"
+  short_description: "Finish an existing PR with strict merge gates"
+  default_prompt: "Use $inspect-and-finish-pr to inspect and finish the existing pull request without merging unless I explicitly authorize it after verification."
