@@ -211,3 +211,31 @@ debug-with-evidence/references/pr-description.md
 ```
 
 - Cache cleanup: resolved `C:\\Users\\JMann\\Projects\\mine\\agent-skills\\.worktrees\\debug-with-evidence\\.tmp-debug-evidence-uv-cache`, confirmed it was inside the worktree, removed only that directory, and confirmed `Test-Path` is `False`.
+
+## Independent review
+
+- Initial verdict: **Changes Required** (0 Critical, 3 Important, 3 Minor).
+- Fix commit: `9fd19c7` (`fix: close debug workflow state gaps`).
+- I1: Addressed. Approval-time regression evidence now records observed failing-before evidence and the planned post-fix command/expected claim; actual passing evidence is post-implementation verification and PR-record evidence, including the equivalent-evidence path.
+- I2: Addressed. Both binding material-change lists include acceptance behavior.
+- I3: Addressed. The workflow creates the complete pre-creation record, fetches identity, updates Remote verification with actual facts, then refetches and verifies final full body, title, identity, and state without a durable-record-reference alternative or recursive self-copy.
+- M1: Addressed. Contract headings exactly match the approved titles.
+- M2: Addressed. The two open-response entries now record `Action:` rather than an invented choice.
+- M3: Addressed. The scratch ledger records ten passing scenario verdicts across twelve total executions.
+- Rerun: `.superpowers/sdd/2026-08-27-debug-with-evidence/task5-rerun-approval.md` - Pass; waits for direct approval of both artifacts and keeps the failing test uncommitted.
+- Rerun: `.superpowers/sdd/2026-08-27-debug-with-evidence/task5-rerun-drift.md` - Pass; blocks, updates both artifacts, and requests fresh approval on material drift.
+- Rerun: `.superpowers/sdd/2026-08-27-debug-with-evidence/task5-rerun-verification.md` - Pass; blocks on relevant queue evidence and requires final remote identity/body verification.
+- Focused regression: `.superpowers/sdd/2026-08-27-debug-with-evidence/task5-regression-chronology.md` - Pass; preserves failing-before/planned-post-fix/actual-post-fix chronology.
+- Focused regression: `.superpowers/sdd/2026-08-27-debug-with-evidence/task5-regression-acceptance-drift.md` - Pass; treats changed acceptance behavior as material drift.
+- Focused regression: `.superpowers/sdd/2026-08-27-debug-with-evidence/task5-regression-pr-refetch.md` - Pass; updates remote facts, refetches final body and identity, and avoids recursive self-copy.
+- Final verdict: **Approved**. No open Critical or Important finding.
+
+## Final verification
+
+- Validator command: `uv run --no-project --with pyyaml python C:\\Users\\JMann\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py .\\debug-with-evidence` with repository-local `.tmp-debug-evidence-uv-cache`. Initial sandbox attempt: exit 1; PyPI fetch for `pyyaml` was blocked with socket-access error 10013. Narrow escalated rerun: exit 0; final output `Skill is valid!` (with the `--no-project` warning; historical Windows installers skipped; one package installed in 16 ms).
+- UTF-8 scan: instructional non-ASCII characters 0; acceptance matching lines 3; acceptance non-ASCII characters 5.
+- Reserved-token scan: 0 matches.
+- Exact inventory: `debug-with-evidence/SKILL.md`, `debug-with-evidence/agents/openai.yaml`, `debug-with-evidence/references/acceptance-scenarios.md`, `debug-with-evidence/references/diagnosis.md`, `debug-with-evidence/references/fix-plan.md`, `debug-with-evidence/references/pr-description.md`.
+- Line counts: `SKILL.md` 71; `agents/openai.yaml` 4; `references/acceptance-scenarios.md` 241; `references/diagnosis.md` 60; `references/fix-plan.md` 69; `references/pr-description.md` 50.
+- `git diff --check`: exit 0. Staged scope before final staging: empty.
+- Cache cleanup: resolved only the guarded repository-local `.tmp-debug-evidence-uv-cache` path and confirmed `cache_exists=False`.
