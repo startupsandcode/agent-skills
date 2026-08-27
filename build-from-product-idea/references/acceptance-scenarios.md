@@ -66,3 +66,11 @@ Not run yet.
 ## Regression results
 
 Not run yet.
+
+## Structural validation
+
+- Validator: exit 2; not validatable in this sandbox because the isolated `uv` run could not fetch `pyyaml` from `https://pypi.org/simple/pyyaml/`. Exact failure: `tcp connect error: An attempt was made to access a socket in a way forbidden by its access permissions. (os error 10013)`
+- Instructional-file non-ASCII scan: 0 matches across `SKILL.md`, `agents/openai.yaml`, `references/product-brief.md`, `references/implementation-plan.md`, and `references/pr-description.md`.
+- Intentional RED-evidence non-ASCII scan: 2 matches in this file, retained exactly: line 11 starts with `Starting implementation` and has two U+2014 em dashes around `or even supposedly low-risk scaffolding`; line 20 starts with `systems` and has U+2014 em dashes before `authentication completion` and before `into`.
+- Reserved-token scan (two common work-note abbreviations and the two-word reserved marker): 0 matches.
+- Validator cache cleanup: resolved cache path exactly matched `C:\Users\JMann\Projects\mine\agent-skills\.worktrees\build-from-product-idea\.tmp-build-product-uv-cache`; removed it; `Test-Path` returned `False`.

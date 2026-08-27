@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build from Product Idea"
+  short_description: "Turn an approved idea into a verified PR"
+  default_prompt: "Use $build-from-product-idea to shape this idea, obtain my approval, implement it, and create a verified ready-for-review PR."
