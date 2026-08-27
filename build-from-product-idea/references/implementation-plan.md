@@ -22,11 +22,11 @@ Describe expected failure modes, user-visible handling, logging or recovery beha
 
 ## Dependencies and permissions
 
-List required new or changed dependencies, integrations, credentials, and permissions with their purpose and impact. If none apply, write `None` and explain why.
+Cover dependencies and permissions separately. For dependencies, list each required new or changed package, service, or integration with its purpose and impact; if no dependency applies, write `None` and explain why. For permissions, list each required new or changed access, credential, or privilege with its purpose and impact; if no permission applies, write `None` and explain why.
 
 ## Migrations and rollout
 
-Describe data migrations, deployment sequence, compatibility, rollback, and rollout risk. If none apply, write `None` and explain why.
+Cover migrations and rollout separately. For migrations, describe each data or schema migration, compatibility, rollback, and risk; if no migration applies, write `None` and explain why. For rollout, describe deployment sequence, release controls, and rollout risk; if no rollout work applies, write `None` and explain why.
 
 ## Test strategy
 
@@ -42,4 +42,4 @@ Stop for updated artifacts and fresh explicit approval if implementation would c
 
 ## Approval-ready check
 
-The plan is approval-ready only when it is grounded in actual repository evidence, specifies affected files and ordered changes, supplies exact verification commands, and explains all applicable delivery risks. Dependencies, permissions, migrations, and rollout must each be covered; where not applicable, state `None` with reasoning. Present this final plan with the final product brief and wait for direct approval before implementation.
+The plan is approval-ready only when it is grounded in actual repository evidence, specifies affected files and ordered changes, supplies exact verification commands, and explains all applicable delivery risks. Dependencies, permissions, migrations, and rollout must each be covered separately; for every individually non-applicable item, state `None` with reasoning. Present this final plan with the final product brief and wait for direct approval before implementation.

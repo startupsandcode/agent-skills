@@ -28,7 +28,7 @@ Ask one focused question at a time for any consequential missing product decisio
 
 ## Produce implementation plan
 
-Inspect the actual repository before planning. Use [the implementation-plan contract](references/implementation-plan.md) to create a codebase-grounded, approval-ready plan with exact verification commands. If the scope cannot fit one coherent PR, phase it now and return `Awaiting approval` for one bounded first phase.
+Inspect the actual repository before planning. Use [the implementation-plan contract](references/implementation-plan.md) to create a codebase-grounded, approval-ready plan with exact verification commands. If the scope cannot fit one coherent PR, phase it, then present the bounded first-phase brief and plan before returning `Awaiting approval` for that phase.
 
 ## Obtain explicit approval
 
@@ -36,7 +36,7 @@ Present the final product brief and final implementation plan together, then sto
 
 ## Implement without material drift
 
-Implement the approved plan using repository conventions and the smallest coherent changes. Minor details may proceed only when they preserve approved scope, user-visible behavior, architecture and interfaces, dependencies, integrations and permissions, data handling, migrations and rollout, and security and privacy posture.
+Implement the approved plan using repository conventions, test-first behavior where applicable, and the smallest coherent changes. Minor details may proceed only when they preserve approved scope, user-visible behavior, architecture and interfaces, dependencies, integrations and permissions, data handling, migrations and rollout, and security and privacy posture.
 
 Stop as `Blocked` before any material change. Material changes include scope or acceptance criteria, user-visible behavior, architecture or interfaces, dependencies, integrations or permissions, data handling, migrations or rollout, and security or privacy posture. Explain the evidence, update the affected brief and/or plan, and obtain fresh explicit approval before continuing.
 

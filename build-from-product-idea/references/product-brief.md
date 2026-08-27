@@ -38,4 +38,4 @@ Identify meaningful delivery, user, operational, security, privacy, or dependenc
 
 ## Approval-ready check
 
-The brief is approval-ready only when every acceptance criterion is observable, consequential assumptions are surfaced, and the scope fits one coherent PR. If a product choice that could change scope or behavior remains unresolved, report `Needs input` rather than inventing a requirement. Otherwise present this brief with the final implementation plan and wait for direct approval.
+The brief is approval-ready only when every acceptance criterion is observable, consequential assumptions are surfaced, and the scope fits one coherent PR. If any product choice remains unresolved, report `Needs input` rather than inventing a requirement. Otherwise present this brief with the final implementation plan and wait for direct approval.
