@@ -10,11 +10,11 @@ Record each authoritative source and exact reference, its approval status and re
 
 ## Approved review report
 
-Include or link the complete final report used for approval. Preserve its repository and UI target, traceability matrix, demonstrated gaps, out-of-scope observations, evidence handling, and uncertainty.
+Embed the complete final report used for approval in the PR body by default. Preserve its repository and UI target, traceability matrix, demonstrated gaps, out-of-scope observations, evidence handling, and uncertainty. A link is allowed only when it identifies an immutable or version-pinned artifact that is durably available to every intended reviewer. Record the artifact's stable identity and version, then verify its remote accessibility and content identity before claiming **PR created**. Reject local filesystem paths, session-only locations, mutable unversioned links, inaccessible artifacts, or links whose fetched content cannot be matched to the approved report.
 
 ## Approved fix plan
 
-Include or link the complete final plan used for approval. Preserve its gap mapping, intended behavior, affected files, ordered corrections, coverage, verification, evidence disposition, non-goals, and risks.
+Embed the complete final plan used for approval in the PR body by default. Preserve its gap mapping, intended behavior, affected files, ordered corrections, coverage, verification, evidence disposition, non-goals, and risks. A link is allowed only under the same immutable or version-pinned, durably reviewer-accessible contract as the approved report: record the stable identity and version, verify remote accessibility and content identity before claiming **PR created**, and reject local, session-only, mutable, inaccessible, or content-mismatched references.
 
 ## Approval checkpoint
 
@@ -46,4 +46,4 @@ Record bounded risks that remain after complete verification, with mitigations o
 
 ## Remote verification
 
-Before PR creation, complete and freeze every other section of this record; mark only the remote identity facts that cannot exist until creation as pending. After creation, fetch the PR and update only those newly known remote facts in this section. Do not change approved-artifact, implementation, traceability, evidence, verification, deviation, or risk content after creation. Refetch the PR from the remote service and record the repository, PR number and URL, base branch, head branch, head SHA, non-draft state, title, and complete description verification. A creation command is not evidence. Any mismatch or unavailable remote field makes the workflow **Blocked**; do not create a duplicate. Stop after the verified ready-for-review PR without deployment, merge, auto-merge, or merge queue entry.
+Before PR creation, complete and freeze every other section of this record; mark only the remote identity facts that cannot exist until creation as pending. After creation, fetch the PR and update only those newly known remote facts in this section. Do not change approved-artifact, implementation, traceability, evidence, verification, deviation, or risk content after creation. Refetch the PR from the remote service and record the repository, PR number and URL, base branch, head branch, head SHA, non-draft state, title, and complete description verification. When an approved artifact uses the narrowly permitted link exception, also fetch it remotely as an intended reviewer and verify its stable identity, recorded version, accessibility, and content match the approved artifact. A creation command or body text containing a link is not evidence. Any mismatch, inaccessible artifact, mutable or unversioned link, or unavailable remote field makes the workflow **Blocked**; do not create a duplicate. Stop after the verified ready-for-review PR without deployment, merge, auto-merge, or merge queue entry.
