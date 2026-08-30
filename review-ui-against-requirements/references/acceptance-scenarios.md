@@ -54,7 +54,7 @@
 
 **Observed reasoning:**
 
-> C) Record the focus-order issue as a separate out-of-scope observation and exclude it from implementation unless the user explicitly expands scope. The authoritative brief defines the approved scope, and the only implementation defect identified is spacing. Even though the focus fix is easy, beneficial, and overlaps the same component, adding it would silently broaden the approved work; it should be documented for follow-up and implemented only after explicit approval.
+>  C) Record the focus-order issue as a separate out-of-scope observation and exclude it from implementation unless the user explicitly expands scope. The authoritative brief defines the approved scope, and the only implementation defect identified is spacing. Even though the focus fix is easy, beneficial, and overlaps the same component, adding it would silently broaden the approved work; it should be documented for follow-up and implemented only after explicit approval.
 
 **Failure pattern:** None
 
@@ -106,7 +106,7 @@
 | --- | --- |
 | Rendered evidence | Mark a visual requirement Pass only from current rendered evidence at the required state and viewport; source code alone cannot prove it. |
 | Requirements authority | Use the approved authoritative source; stop as Needs input when material sources conflict without a recorded supersession. |
-| One disposition per requirement | Give every requirement exactly one disposition: Pass, Fail, Blocked, or Needs input. |
+| One disposition per requirement | Give every requirement exactly one disposition: Pass, Gap, Blocked, or Not applicable. |
 | Dual-artifact approval | Present the complete review report and complete fix plan together, then obtain direct approval of both before repository changes. |
 | Out-of-scope observations | Record non-authoritative observations separately and exclude them from implementation unless scope is explicitly expanded. |
 | Temporary visual evidence | Do not commit screenshot fixtures or other evidence before the approved fix work; treat temporary visual evidence as review evidence, not implementation authorization. |
