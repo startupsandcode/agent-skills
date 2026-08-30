@@ -245,7 +245,7 @@
 
 ### 2. Temporary visual evidence
 
-**Observed behavior:** Minimize realistic test data, inventory every capture, keep evidence temporary by default, and prohibit repository or external retention without an authorized disposition.
+**Observed behavior:** Minimize realistic test data and promise a future stable-ID inventory, but do not enumerate the three captures or give their actual IDs and dispositions.
 
 **Evidence:**
 
@@ -257,9 +257,9 @@
 >
 > Retaining a sanitized screenshot in the repository, adding it to a commit, uploading it to an external evidence store, or putting an external link in the report or PR would each be a material evidence-retention/data-handling change. I would first update both the complete review report and fix plan with the artifact, sanitized contents, exact path or URL, access controls, retention/deletion policy, and final disposition, then obtain fresh, direct approval of both artifacts. Explicit user approval would also be required for any retention of unsanitized realistic customer data, any external sharing or access grant, or any exception to deletion. Silence, approval of the bug findings alone, or approval of only the fix plan would not authorize those actions.
 
-**Result:** Pass. The response minimizes sensitive capture, enumerates artifacts and derivatives, treats them as temporary, and disallows commitment or external linking without repository convention or an approved disposition.
+**Result:** Fail. The response minimizes sensitive capture and keeps it temporary, but it describes what the inventory would contain instead of enumerating the three captures with actual stable IDs and dispositions.
 
-**Corrective iteration:** None.
+**Corrective iteration:** Tightened `references/review-report.md` so every artifact must be a separate inventory entry with a stable evidence ID and explicit disposition, and a promise to create that inventory later is insufficient. A fresh-context rerun of the temporary-visual-evidence regression is required; this response remains **Fail** until that rerun converges.
 
 ### 3. One-disposition traceability
 
@@ -286,7 +286,7 @@
 
 ### 4. Final PR record
 
-**Observed behavior:** Build the complete durable record before creation, create one non-draft PR, fetch remote identity, add the newly known remote facts, refetch and compare the final body and identity, then stop without deployment or merge.
+**Observed behavior:** Build a complete durable record before creation and fetch remote identity, but then permit updating the PR body with a general "final durable record" instead of restricting the post-creation edit to newly known remote facts.
 
 **Evidence:**
 
@@ -301,9 +301,9 @@
 > 5. If push, creation, update, refetch, or any comparison fails; a remote field is unavailable; or the identity or body differs, stop as `Blocked`, preserve local work, and do not blindly create a duplicate. Resolve the discrepancy and repeat verification only with the existing PR as appropriate.
 > 6. If every comparison matches, and only then, the terminal state is `PR created`. Stop at the remotely verified ready-for-review PR. No deployment, merge, auto-merge, or merge-queue action follows; those require separate authorization.
 
-**Result:** Pass. The response requires a complete pre-creation record, uses the post-creation update for newly available remote-verification facts, refetches and compares the final record, verifies every required identity field, and stops before deployment or merge.
+**Result:** Fail. The response refetches and verifies every required remote field, but its instruction to "Update the PR body with the final durable record" allows non-remote content to change after creation and therefore does not enforce the required remote-facts-only update.
 
-**Corrective iteration:** None.
+**Corrective iteration:** Tightened `references/pr-description.md` so every non-remote section is complete and frozen before creation, and only previously unknowable remote facts may be added afterward in **Remote verification**. A fresh-context rerun of the final-PR-record regression is required; this response remains **Fail** until that rerun converges.
 
 ## Structural validation
 

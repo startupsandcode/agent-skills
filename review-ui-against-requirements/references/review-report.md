@@ -31,7 +31,7 @@ Record high-confidence accessibility or usability concerns not required by autho
 
 ## Evidence handling
 
-Inventory temporary screenshots, recordings, logs, DOM or accessibility captures, and supporting source evidence. Record whether each item remains temporary, is deleted after use, or may be committed or externally linked under an existing repository convention. Avoid sensitive data; do not turn temporary review evidence into a durable artifact without an approved plan.
+Enumerate every temporary screenshot, recording, log, DOM or accessibility capture, and supporting source item as its own inventory entry with a stable evidence ID and explicit disposition. Record whether each item remains temporary, is deleted after use, or may be committed or externally linked under an existing repository convention. A promise to assign IDs or create the inventory later is not an inventory. Avoid sensitive data; do not turn temporary review evidence into a durable artifact without an approved plan.
 
 ## Remaining uncertainty
 
