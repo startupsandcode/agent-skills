@@ -122,3 +122,28 @@ Not run yet.
 ## Regression results
 
 Not run yet.
+
+## Structural validation
+
+- Codex metadata: `agents/openai.yaml` created with the required display name, short description, and default prompt.
+- Validator, first attempt: exit `1` because the sandbox blocked the PyYAML fetch. Exact output:
+
+  ```text
+  WARN `--no-project` was provided, but no project was found
+  WARN Retry attempt #0. Sleeping 933.8771ms before the next attempt
+  WARN Retry attempt #1. Sleeping 753.4948ms before the next attempt
+  WARN Retry attempt #2. Sleeping 1.5129542s before the next attempt
+  error: Request failed after 3 retries
+    Caused by: Failed to fetch: `https://pypi.org/simple/pyyaml/`
+    Caused by: error sending request for url (https://pypi.org/simple/pyyaml/)
+    Caused by: client error (Connect)
+    Caused by: tcp connect error
+    Caused by: An attempt was made to access a socket in a way forbidden by its access permissions. (os error 10013)
+  ```
+
+- Validator, narrow network-approved retry with `UV_CACHE_DIR` set to the repository-local `.tmp-ui-review-uv-cache`: exit `0`; final output: `Skill is valid!`.
+- Strict UTF-8 decoding and ASCII check: `SKILL.md`, `agents/openai.yaml`, `references/review-report.md`, `references/fix-plan.md`, and `references/pr-description.md` each had `0` non-ASCII characters. `references/acceptance-scenarios.md` decoded as UTF-8 and had `2` non-ASCII characters, retained solely in the exact baseline quotations above.
+- Configured unfinished scaffold-marker scan: none. The explicit `Not run yet.` entries in GREEN and regression results remain permitted at this Task 3 checkpoint; Task 4 owns GREEN testing.
+- Exact package inventory (six files only): `SKILL.md`, `agents/openai.yaml`, `references/acceptance-scenarios.md`, `references/fix-plan.md`, `references/pr-description.md`, and `references/review-report.md`.
+- `git diff --check`: clean.
+- Guarded cache cleanup: the resolved cache path was a descendant of the worktree and its leaf was exactly `.tmp-ui-review-uv-cache`; removal succeeded and `Test-Path` returned `False`.

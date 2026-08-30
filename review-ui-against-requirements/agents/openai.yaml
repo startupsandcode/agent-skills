@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review UI Against Requirements"
+  short_description: "Review, approve, fix, verify, and open a PR"
+  default_prompt: "Use $review-ui-against-requirements to review this implemented UI against its authoritative requirements, obtain my approval of the review and fix plan, implement the fixes, and open a verified ready-for-review PR."
