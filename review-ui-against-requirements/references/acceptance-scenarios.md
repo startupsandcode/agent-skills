@@ -428,7 +428,217 @@
 
 - Validator, narrow network-approved retry with `UV_CACHE_DIR` set to the repository-local `.tmp-ui-review-uv-cache`: exit `0`; final output: `Skill is valid!`.
 - Strict UTF-8 decoding and ASCII check: `SKILL.md`, `agents/openai.yaml`, `references/review-report.md`, `references/fix-plan.md`, and `references/pr-description.md` each had `0` non-ASCII characters. `references/acceptance-scenarios.md` decoded as UTF-8 and had `2` non-ASCII characters, retained solely in the exact baseline quotations above.
-- Configured unfinished scaffold-marker scan: none. The explicit `Not run yet.` entries in GREEN and regression results remain permitted at this Task 3 checkpoint; Task 4 owns GREEN testing.
+- Configured unfinished scaffold-marker scan at the Task 3 checkpoint: no unexpected marker; the then-scheduled GREEN and regression placeholders were owned and later replaced by Task 4 evidence.
 - Exact package inventory (six files only): `SKILL.md`, `agents/openai.yaml`, `references/acceptance-scenarios.md`, `references/fix-plan.md`, `references/pr-description.md`, and `references/review-report.md`.
 - `git diff --check`: clean.
 - Guarded cache cleanup: the resolved cache path was a descendant of the worktree and its leaf was exactly `.tmp-ui-review-uv-cache`; removal succeeded and `Test-Path` returned `False`.
+
+## Independent review
+
+### Initial verdict
+
+Review target: `a52f0241445b4a33c98f6ba54f21bb3502d02aaa..febcdb9fc61858baab305f6c943fd6d219700b13`.
+
+Verdict: **CHANGES REQUIRED**.
+
+| Severity | Count |
+| --- | ---: |
+| Critical | 0 |
+| Important | 2 |
+| Minor | 0 |
+
+The first Important finding was that the PR-description contract allowed the approved report and fix plan to be linked without requiring durable, immutable or version-pinned, reviewer-accessible artifacts or remote content-identity verification. The second was that corrective evidence did not show the plan-required post-correction reruns of the affected original **Approval before fixes** and **Incomplete final verification** scenarios.
+
+### Corrective wave
+
+- `5698556 fix: require durable approved artifacts` changed only `references/pr-description.md`. The complete approved report and plan are now embedded by default. A link is allowed only for an immutable or version-pinned artifact durably available to every intended reviewer; its stable identity, version, remote accessibility, and content identity must be verified. Local paths, session-only locations, mutable or unversioned links, inaccessible artifacts, and content mismatches are **Blocked**.
+- `1207d87 test: rerun affected UI review scenarios` added post-correction approval, incomplete-verification, and final-PR-record evidence. A later provenance audit found that those three transcripts were not produced in controller-isolated fresh contexts, so they are not relied on as final evidence.
+- `2183b54 test: correct UI review evidence provenance` replaced the unsupported transcript evidence with exact controller-owned outputs, retained explicit supersession notes, and assessed each output against its applicable approval, verification, durable-artifact, remote-facts-only, refetch, and no-merge requirements.
+
+### Scoped fix re-review
+
+The scoped fix re-review cleared both original Important findings. No Critical or Important finding from the initial review remained open.
+
+### Provenance correction and re-review
+
+The acceptance record explicitly preserves that the three transcripts introduced in `1207d87` lacked controller-isolated provenance and were superseded. The controller-owned approval, incomplete-verification, and final-PR-record outputs are recorded under **Controller-isolated fresh-context rerun evidence** and compare exactly after documented line-ending and terminal-whitespace normalization.
+
+The scoped provenance/evidence re-review passed all six checks with no findings.
+
+### Final verdict
+
+Verdict: **APPROVED**.
+
+| Severity | Open count |
+| --- | ---: |
+| Critical | 0 |
+| Important | 0 |
+| Minor | 0 |
+
+The initial **CHANGES REQUIRED** verdict remains preserved above. Both blocking findings are closed, the provenance correction is explicit, and no open Critical or Important issue remains.
+
+## Final verification
+
+### Authoritative validator and guarded cleanup
+
+Command:
+
+```powershell
+$taskCache = Join-Path (Get-Location) '.tmp-ui-review-uv-cache'
+New-Item -ItemType Directory -Force -Path $taskCache | Out-Null
+$env:UV_CACHE_DIR = $taskCache
+"VALIDATOR CACHE=$taskCache"
+uv run --no-project --with pyyaml python 'C:\Users\JMann\.codex\skills\.system\skill-creator\scripts\quick_validate.py' '.\review-ui-against-requirements'
+"VALIDATOR EXIT=$LASTEXITCODE"
+if ($LASTEXITCODE -ne 0) { throw 'validator failed' }
+```
+
+Result:
+
+```text
+VALIDATOR CACHE=C:\Users\JMann\Projects\mine\agent-skills\.worktrees\review-ui-against-requirements\.tmp-ui-review-uv-cache
+WARN `--no-project` was provided, but no project was found
+Installed 1 package in 14ms
+Skill is valid!
+VALIDATOR EXIT=0
+```
+
+`uv` also emitted informational compatibility skips for legacy PyYAML Windows artifacts; it emitted no validation error.
+
+Guarded cleanup command:
+
+```powershell
+$workspace = [System.IO.Path]::GetFullPath((Get-Location).Path).TrimEnd('\')
+$cache = [System.IO.Path]::GetFullPath((Join-Path (Get-Location) '.tmp-ui-review-uv-cache')).TrimEnd('\')
+$descendant = $cache.StartsWith($workspace + '\',[System.StringComparison]::OrdinalIgnoreCase)
+$leaf = [System.IO.Path]::GetFileName($cache)
+"CACHE PATH=$cache"
+"WORKTREE PATH=$workspace"
+"DESCENDANT=$descendant"
+"LEAF=$leaf"
+if (-not $descendant -or $leaf -ne '.tmp-ui-review-uv-cache') { throw 'Refusing cache removal: guard failed' }
+if (Test-Path -LiteralPath $cache) { Remove-Item -LiteralPath $cache -Recurse -Force }
+"CACHE EXISTS=$(Test-Path -LiteralPath $cache)"
+```
+
+Result:
+
+```text
+CACHE PATH=C:\Users\JMann\Projects\mine\agent-skills\.worktrees\review-ui-against-requirements\.tmp-ui-review-uv-cache
+WORKTREE PATH=C:\Users\JMann\Projects\mine\agent-skills\.worktrees\review-ui-against-requirements
+DESCENDANT=True
+LEAF=.tmp-ui-review-uv-cache
+CACHE EXISTS=False
+```
+
+### Encoding, inventory, line counts, and unfinished markers
+
+The strict-decoding command used `[System.Text.UTF8Encoding]::new($false,$true)` and `ReadAllBytes` for each file. It counted characters above ASCII 127 in the five instructional files, measured the acceptance file separately, recursively enumerated package-relative file names, counted lines, and scanned this configured unfinished pattern:
+
+```powershell
+$markerPattern='(?i)\b(?:T'+'ODO|T'+'BD|F'+'IXME|X'+'XX)\b|N'+'ot run yet\.'
+```
+
+Result:
+
+```text
+UTF8 PASS .\review-ui-against-requirements\SKILL.md ASCII_NONCOUNT=0
+UTF8 PASS .\review-ui-against-requirements\agents\openai.yaml ASCII_NONCOUNT=0
+UTF8 PASS .\review-ui-against-requirements\references\review-report.md ASCII_NONCOUNT=0
+UTF8 PASS .\review-ui-against-requirements\references\fix-plan.md ASCII_NONCOUNT=0
+UTF8 PASS .\review-ui-against-requirements\references\pr-description.md ASCII_NONCOUNT=0
+ACCEPTANCE UTF8 PASS nonAscii=11
+PACKAGE COUNT=6
+agents/openai.yaml
+references/acceptance-scenarios.md
+references/fix-plan.md
+references/pr-description.md
+references/review-report.md
+SKILL.md
+PACKAGE INVENTORY PASS
+LINE COUNT agents/openai.yaml=5
+LINE COUNT references/acceptance-scenarios.md=645
+LINE COUNT references/fix-plan.md=58
+LINE COUNT references/pr-description.md=50
+LINE COUNT references/review-report.md=43
+LINE COUNT SKILL.md=104
+UNFINISHED MARKERS=0
+UNFINISHED MARKER SCAN PASS
+```
+
+The earlier Task 3 checkpoint sentence that contained the literal unfinished marker was rewritten as historical prose before this scan. No package file contains the marker now.
+
+### Roadmap and complete branch scope
+
+The first diagnostic comparison normalized only the current README's terminal newline and returned a false mismatch. The corrected check normalized CRLF/LF and terminal newlines symmetrically for the `main` and worktree versions, excluding only the two authorized target rows.
+
+Corrected roadmap result:
+
+```text
+ROADMAP READY ROW COUNT=1
+CREATE-PERSONA ROW COUNT=0
+OTHER ROADMAP CONTENT UNCHANGED=True
+ROADMAP NORMALIZED CHECK PASS
+```
+
+Commands:
+
+```powershell
+git rev-parse main
+git merge-base main HEAD
+git diff --name-only main --
+git diff --numstat main --
+git diff --check
+git status --short
+git diff --cached --name-status
+```
+
+Result:
+
+```text
+MAIN SHA=a52f0241445b4a33c98f6ba54f21bb3502d02aaa
+MERGE BASE=a52f0241445b4a33c98f6ba54f21bb3502d02aaa
+BASE MATCH=True
+BRANCH SCOPE COUNT=10
+AGENTS.md
+README.md
+docs/superpowers/plans/2026-08-30-review-ui-against-requirements.md
+docs/superpowers/specs/2026-08-28-review-ui-against-requirements-design.md
+review-ui-against-requirements/SKILL.md
+review-ui-against-requirements/agents/openai.yaml
+review-ui-against-requirements/references/acceptance-scenarios.md
+review-ui-against-requirements/references/fix-plan.md
+review-ui-against-requirements/references/pr-description.md
+review-ui-against-requirements/references/review-report.md
+BRANCH SCOPE PASS
+UNRELATED EXISTING SKILL PATHS=0
+UNRELATED SKILL CHECK PASS
+DIFF CHECK PASS
+CACHE EXISTS=False
+WORKTREE
+ M README.md
+ M review-ui-against-requirements/references/acceptance-scenarios.md
+STAGED
+```
+
+The complete branch diff contains only `AGENTS.md`, the approved design, the implementation plan, the six-file skill package, and `README.md`. No unrelated existing skill path changed. Before final staging, the only worktree changes were the two Task 5 paths and the index was empty.
+
+### Design acceptance-criterion mapping
+
+| Approved design acceptance criterion | Current evidence |
+| --- | --- |
+| Validates as a portable Agent Skill | Authoritative validator above: `Skill is valid!`, exit `0`. |
+| Codex metadata is isolated from the portable core | Exact six-file inventory; Codex-only metadata is confined to `agents/openai.yaml`; the portable workflow and contracts remain Markdown under the skill root. |
+| Each requirement has one traceable disposition backed by current evidence | **Expected invariants**, GREEN **One-disposition traceability**, and the passing focused regression with desktop, mobile, conflict, and non-applicable rows. |
+| Visual and interaction passes require rendered evidence | GREEN **Rendered visual evidence** selects **Blocked** when only CSS is available. |
+| Ambiguity or conflicting authority produces **Needs input** | GREEN **Conflicting authority** and the one-disposition regression both stop as **Needs input**. |
+| Unavailable rendered environment or incomplete relevant evidence produces **Blocked** | GREEN **Incomplete final verification** and its controller-isolated rerun reject draft and finished PR workarounds. |
+| Implementation requires direct approval of both final artifacts | GREEN **Approval before fixes** and its controller-isolated rerun require both complete artifacts together and current-session approval. |
+| Out-of-scope observations stay excluded absent explicit expansion | GREEN **Out-of-scope improvement** records the concern separately and excludes it from implementation. |
+| Material drift requires updated artifacts and fresh approval | GREEN **Material drift** stops, updates both artifacts, and requires fresh direct approval. |
+| Every approved gap is reverified as **Pass** in the final rendered UI | **Final traceability** invariant, `SKILL.md` final-UI gate, and the final-PR-record regression require current rendered **Pass** evidence for every approved gap. |
+| PR is non-draft, remotely verified, and contains the durable review record | Controller-isolated **Final PR record** rerun freezes the complete record, verifies every remote identity/body fact, and remotely verifies any durable-link exception. |
+| Deployment and merge-equivalent actions are prohibited | GREEN **Post-PR deployment and merge** and the controller-isolated final-PR-record rerun stop without deploy, merge, auto-merge, or merge queue. |
+| Independent inspection has no open Critical or Important issue | **Independent review / Final verdict** above: **APPROVED**, Critical `0`, Important `0`. |
+
+All thirteen approved design acceptance criteria map to current evidence.
