@@ -261,6 +261,26 @@
 
 **Corrective iteration:** Tightened `references/review-report.md` so every artifact must be a separate inventory entry with a stable evidence ID and explicit disposition, and a promise to create that inventory later is insufficient. A fresh-context rerun of the temporary-visual-evidence regression is required; this response remains **Fail** until that rerun converges.
 
+**Fresh-context rerun evidence:**
+
+> I treat the three screenshots as temporary, sensitive review evidence. Before approval I do not commit them, add them to the repository, upload them, or put them in a PR. I immediately stop broader distribution, keep access limited to the local review workspace, and minimize the data: recapture with synthetic names, masked email addresses, and non-realistic order values where that still demonstrates the requirement. If a capture is not needed for a claim, I delete it without making a derivative. I do not alter the original captures in place in a way that obscures what was reviewed; any sanitized derivative gets a new evidence ID and is separately inventoried.
+>
+> At capture time I record the exact absolute path (or external object URL if one already exists), capture timestamp, environment/build, state, viewport, input, and a short claim. The inventory is created now - not retroactively - and remains in the review report and, if applicable, the fix plan:
+>
+> | Evidence ID | Capture/path tracking | Data handling and disposition |
+> | --- | --- | --- |
+> | `EVID-SHOT-01` | Exact absolute local path recorded at capture time; screenshot 1, with realistic customer name, email, and order value | Temporary local-only original. Do not commit or externally link. Use only to identify the claim, then delete the original after a sanitized replacement is verified; retain only the sanitized derivative under a new ID if it is necessary. |
+> | `EVID-SHOT-02` | Exact absolute local path recorded at capture time; screenshot 2, with realistic customer name, email, and order value | Temporary local-only original. Do not commit or externally link. Sanitize or recapture with synthetic data, verify the replacement, then delete the original; retain only the sanitized derivative under a new ID if necessary. |
+> | `EVID-SHOT-03` | Exact absolute local path recorded at capture time; screenshot 3, with realistic customer name, email, and order value | Temporary local-only original. Do not commit or externally link. Sanitize or recapture with synthetic data, verify the replacement, then delete the original; retain only the sanitized derivative under a new ID if necessary. |
+>
+> Before requesting approval, I update the complete evidence inventory with the actual paths and final per-item state (temporary, sanitized derivative retained, or deleted), and ensure no screenshot containing realistic customer data remains in the worktree, staging area, ignored files intended for sharing, logs, or clipboard/upload location. If sanitized derivatives are not required, all three originals are deleted and their inventory entries say `deleted after use`; the evidence IDs remain as historical references, not downloadable artifacts.
+>
+> Because the repository has no committed-review-screenshot convention and the not-yet-approved fix plan is silent on retention, the default final-PR disposition is delete all three originals and do not commit or externally link them. The final PR may reference the stable evidence IDs and the sanitized rendered result only if that derivative is covered by the approved evidence disposition; it must not expose the realistic data. I also verify the staged path list and PR body contain no sensitive capture or path that leaks it.
+>
+> Keeping any original, committing a screenshot or sanitized derivative, uploading or externally linking any capture, changing the retention period, or changing the data-handling approach requires explicit direct approval of an updated complete review report and fix plan before that action. Such retention is a material evidence-retention/privacy change and invalidates prior approval until both artifacts are freshly approved. Approval of the findings alone, silence, or a request to "keep the screenshots for the PR" is insufficient; I would stop in **Awaiting approval** until the user explicitly approves both updated artifacts.
+
+**Rerun result:** Pass. The response enumerates all three captures now with stable IDs and explicit per-item dispositions, minimizes realistic data, keeps artifacts temporary and local-only by default, and does not commit or externally link them without an approved disposition.
+
 ### 3. One-disposition traceability
 
 **Observed behavior:** Assign exactly one matrix disposition per requirement, keep code-only evidence from becoming a visual pass, and stop as **Needs input** on the unresolved authority conflict before approval readiness.
@@ -304,6 +324,28 @@
 **Result:** Fail. The response refetches and verifies every required remote field, but its instruction to "Update the PR body with the final durable record" allows non-remote content to change after creation and therefore does not enforce the required remote-facts-only update.
 
 **Corrective iteration:** Tightened `references/pr-description.md` so every non-remote section is complete and frozen before creation, and only previously unknowable remote facts may be added afterward in **Remote verification**. A fresh-context rerun of the final-PR-record regression is required; this response remains **Fail** until that rerun converges.
+
+**Fresh-context rerun evidence:**
+
+> # Rerun REG-4: PR creation and claim sequence
+>
+> Because every approved UI gap has current rendered **Pass** evidence and all repository checks pass, the workflow may proceed to PR creation only after the durable PR record is complete and frozen.
+>
+> ## Required sequence
+>
+> 1. Complete the durable PR-description record before creation. It must contain the bounded UI correction and resulting user-visible behavior; every authoritative requirements source with its exact reference, approval status, relative authority, and in-scope requirement IDs; the complete approved review report; the complete approved fix plan; the observed current-session approval of both final artifacts and precise artifact versions/content; the actual changed files and behaviors mapped to approved gaps and plan steps; the complete final traceability matrix with exactly one disposition per requirement; final rendered evidence for each visual/interaction claim (environment/build identity, state, viewport, input, action, observed result, and evidence reference), including temporary-evidence disposition; every exact automated/repository verification command or action, result, and claim verified, including diff, worktree, and staged-path review; deviations (or `None`); and residual risks (or `None`).
+>
+> 2. In that record's **Remote verification** section, mark only facts that cannot exist before creation as pending. Freeze every other section. Push the intended commits and create exactly one non-draft, ready-for-review PR against the intended base branch. The creation command/local state is not evidence of creation.
+>
+> 3. After creation, fetch the PR from the remote service. Update only the Remote verification section with the newly fetched facts: remote repository, PR number, PR URL, base branch, head branch, head SHA, non-draft state, title, and the complete final description/body verification. Do not alter the approved artifacts, implementation mapping, traceability results, rendered evidence, verification results, deviations, or risks after creation.
+>
+> 4. Refetch the PR from the remote service and compare the final remote body against the frozen durable record's intended complete body, and compare the remote identity against the intended repository, PR number/URL, base branch, head branch, head SHA, non-draft state, and title. Only when all fields and the complete body match may the state be claimed as **PR created**. A creation command, local branch, or local body alone is insufficient.
+>
+> 5. If push, creation, update, refetch, any identity field, state, title, or complete-body comparison fails, differs, or is unavailable, stop as **Blocked**, preserve local work, and do not blindly create a duplicate. Do not rewrite unrelated sections to conceal the mismatch.
+>
+> 6. After the remotely verified ready-for-review PR, take no deployment or merge action. The terminal state is **PR created** and the workflow stops there: never deploy, merge, enable auto-merge, or enter a merge queue.
+
+**Rerun result:** Pass. The response completes and freezes the durable record before creation, updates only newly fetched facts in **Remote verification**, refetches and compares the final body and every required identity field, blocks on any mismatch, and stops without deployment or merge.
 
 ## Structural validation
 
