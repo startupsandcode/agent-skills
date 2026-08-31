@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deploy and Verify"
+  short_description: "Deploy safely with current production evidence"
+  default_prompt: "Use $deploy-and-verify to deploy this approved release and verify it."

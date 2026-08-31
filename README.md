@@ -11,5 +11,5 @@ Portable skills using the [Agent Skills](https://agentskills.io/) format, author
 | [`debug-with-evidence`](debug-with-evidence/) | Ready |
 | [`review-ui-against-requirements`](review-ui-against-requirements/) | Ready |
 | [`daily-briefing`](daily-briefing/) | Ready |
-| `deploy-and-verify` | Coming soon |
+| [`deploy-and-verify`](deploy-and-verify/) | Ready |
 | `prepare-for-interview` | Coming soon |
