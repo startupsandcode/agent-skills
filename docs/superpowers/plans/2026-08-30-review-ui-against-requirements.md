@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build and behaviorally validate one portable Agent Skill that reviews an implemented UI against authoritative requirements, obtains approval of an evidence-backed review and fix plan, implements and verifies the approved corrections, and opens one ready-for-review PR.
+**Goal:** Build and behaviorally validate one portable Agent Skill that reviews an implemented UI against a non-empty authoritative requirement set, ends a complete no-change review as `Review complete`, or obtains approval of a bounded current-PR fix plan, implements and verifies that phase on a safe head branch, and opens one ready-for-review PR.
 
-**Architecture:** A concise `SKILL.md` owns the traceability workflow, rendered-evidence rule, authorization boundary, material-change gate, verification contract, and terminal states. Four focused references define the review-report, fix-plan, PR-record, and behavioral-test contracts; optional Codex discovery metadata remains separate from the portable core.
+**Architecture:** A concise `SKILL.md` owns the traceability workflow, rendered-evidence and global-redaction rules, no-change and phased state machine, authorization boundary, safe base/head range, material-change gate, verification contract, and terminal states. Four focused references define the review-report, fix-plan, PR-record, and behavioral-test contracts; optional Codex discovery metadata remains separate from the portable core.
 
 **Tech Stack:** Agent Skills `SKILL.md` format, Markdown references, YAML Codex metadata, Git, GitHub-compatible tooling, rendered browser evidence, bundled Python skill validator
 
@@ -13,20 +13,24 @@
 ## Global Constraints
 
 - Operate in exactly one existing repository with an implemented UI; never create or configure a repository.
-- Establish authoritative requirements and map every in-scope requirement to an observable review item.
-- Stop as `Needs input` when requirements sources materially conflict or expected behavior is consequentially ambiguous.
+- Require a non-empty authoritative source set with established approval and relative authority, and map at least one observable in-scope requirement.
+- Stop as `Needs input` when authority or observable requirements are absent, source approval or relative authority cannot be established, requirements sources materially conflict, or expected behavior is consequentially ambiguous.
 - Require current rendered evidence for visual and interaction claims; source code may support but cannot replace that evidence.
 - Give every requirement exactly one disposition: `Pass`, `Gap`, `Blocked`, or `Not applicable`.
 - Keep high-confidence accessibility or usability concerns outside authoritative requirements in a separate observations section and out of the fix plan unless scope expansion is explicitly approved.
-- Treat screenshots and recordings as temporary evidence by default; avoid sensitive data and commit or externally link them only when repository convention or the approved plan permits it.
+- Treat screenshots and recordings as temporary evidence by default; sanitize all evidence, commands, output, logs, URLs, headers, cookies, and identity data, and commit or externally link artifacts only when repository convention or the approved plan permits it.
+- Record credentials only by non-sensitive identifier, approved secure source, required scope, and availability. Never record values; use placeholders in commands. Exposure makes publication `Blocked`, and rotation or revocation requires separate authorization.
+- Select `Review complete` when a non-empty complete matrix contains only `Pass` or evidence-backed `Not applicable` rows and no consequential uncertainty; do not create a plan, repository change, commit, push, or PR.
 - Present the complete review report and complete fix plan together and obtain direct, unambiguous approval in the current session before implementation.
-- Stop and obtain fresh approval when requirements authority or interpretation, gap scope, user-visible behavior, architecture, interfaces, dependencies, integrations, permissions, data handling, data model, migration, rollout, security, privacy, fix strategy, risk, or evidence retention materially changes.
+- Stop and obtain fresh approval when requirements authority or interpretation, gap or phase scope, affected/regression requirements, user-visible behavior, architecture, interfaces, dependencies, integrations, permissions, data handling, data model, migration, rollout, security, privacy, fix or branch/range strategy, risk, or evidence retention materially changes.
 - Preserve unrelated worktree changes and stage only intended paths.
-- Re-run the complete traceability matrix against the final rendered UI and require every approved gap to become `Pass` before PR creation.
+- For phased work, preserve the complete reviewed scope and every deferred authoritative `Gap`, while binding approval and PR readiness to the explicit current-PR gap set plus affected/regression requirements.
+- Require an intended base, distinct safe head, sanitized upstream, branch/worktree creation action when needed, merge base, pre-existing commit range, full base-to-head history/diff inspection, and exhaustive changed-path mapping. Never commit or push the intended base/default branch.
+- Re-run the complete traceability matrix against the final rendered UI and require every approved current-PR gap and affected/regression requirement to become `Pass`; retain deferred gaps honestly.
 - Create only a remotely verified non-draft ready-for-review PR after every relevant rendered and repository check passes.
 - Never deploy, merge, enable auto-merge, or enter a merge queue.
 - Keep the portable workflow independent of Codex-only tools; put Codex-facing metadata in `agents/openai.yaml`.
-- Remove `create-persona` from the repository roadmap and mark `review-ui-against-requirements` `Ready` only after final validation.
+- Remove `create-persona` from the repository roadmap and mark `review-ui-against-requirements` `Ready` only after the latest correction scenarios, validator, complete diff inspection, and independent final review all pass. Use `In review` while that evidence is pending.
 - Keep instructional files ASCII. Preserve exact UTF-8 behavioral quotations in `references/acceptance-scenarios.md` and measure them separately.
 
 ---
@@ -43,13 +47,14 @@
 
 ## Interfaces
 
-- Target establishment consumes repository and requirements sources and produces one authoritative source set, one UI target, and the states, viewports, inputs, and environments to inspect.
+- Target establishment consumes repository and requirements sources and produces one non-empty authoritative source set, at least one observable requirement, one UI target, branch/range provenance, and the states, viewports, inputs, and environments to inspect.
 - The traceability matrix consumes those sources and produces requirement identifiers, source references, expected results, inspection methods, prerequisites, and required evidence.
 - The review consumes the matrix plus rendered and supporting evidence and produces exactly one disposition per requirement plus separately labeled out-of-scope observations.
-- The fix plan consumes demonstrated in-scope gaps and produces bounded file changes, regression strategy, rendered verification, repository commands, risk analysis, and evidence disposition.
+- A complete no-gap review produces `Review complete` and no fix plan or repository mutation.
+- The fix plan consumes demonstrated in-scope gaps and produces a complete-review/current-PR/deferred scope split, safe base/head range, bounded file changes, regression strategy, rendered verification, redacted repository commands, risk analysis, and sanitized evidence disposition.
 - The approval gate consumes both complete artifacts and produces either `Awaiting approval` or authorization bound to their exact scope and strategy.
-- Execution consumes that authorization and produces a fully reverified UI or `Blocked` with exact evidence.
-- PR creation consumes complete verification and produces a remotely verified `PR created` record; it never produces deployment or merge.
+- Execution consumes that authorization and produces a fully reverified current PR on a distinct safe head, while retaining deferred gaps, or `Blocked` with sanitized evidence.
+- PR creation consumes complete current-PR verification and produces a remotely verified `PR created` record containing the full reviewed scope; it never produces deployment or merge.
 
 ---
 
@@ -247,7 +252,7 @@ description: Use when an implemented UI in one existing repository must be evalu
 
 # Review UI Against Requirements
 
-Trace every requirement to current evidence, obtain approval of the complete review and fix plan, then produce one verified ready-for-review PR. Terminal states: **Needs input**, **Awaiting approval**, **Blocked**, or **PR created**.
+Trace every requirement to current evidence. Stop successfully without changes when the complete review has no gaps; otherwise obtain approval of the complete review and current-PR fix plan, then produce one verified ready-for-review PR. Terminal states: **Needs input**, **Review complete**, **Awaiting approval**, **Blocked**, or **PR created**.
 ```
 
 Add compact sections in this order:
@@ -286,7 +291,7 @@ Create `review-ui-against-requirements/references/review-report.md` with exactly
 ## Approval-ready check
 ```
 
-The traceability row contract must require: stable requirement ID, exact source, expected observable result, state/viewport/input, inspection method, actual result, evidence, and one disposition. Each demonstrated gap must record reproduction, impact, confidence, and affected scope. The approval-ready check must reject conflicting authority, missing rendered evidence for a visual or interaction claim, ambiguous dispositions, and consequential unknowns.
+The traceability row contract must require: stable requirement ID, exact source, expected observable result, state/viewport/input, inspection method, actual result, evidence, and one disposition. Require a non-empty source set with established approval and relative authority and at least one observable requirement row. Each demonstrated gap must record reproduction, impact, confidence, and affected scope. The approval-ready check must reject empty or unresolved authority, an empty matrix, missing rendered evidence for a visual or interaction claim, ambiguous dispositions, unsanitized evidence, and consequential unknowns. A complete matrix with no gaps or blocked rows selects `Review complete` and stops without a plan or repository mutation.
 
 - [ ] **Step 3: Create the fix-plan contract**
 
@@ -296,8 +301,10 @@ Create `review-ui-against-requirements/references/fix-plan.md` with exactly thes
 # UI Fix Plan Contract
 
 ## Gaps being corrected
+## Review and current-PR scope
 ## Intended behavior
 ## Affected components and files
+## Repository branch and PR range
 ## Ordered corrections
 ## States, viewports, and error paths
 ## Automated regression coverage
@@ -311,7 +318,7 @@ Create `review-ui-against-requirements/references/fix-plan.md` with exactly thes
 ## Approval-ready check
 ```
 
-Require every correction to map to a demonstrated in-scope gap. Require exact repository evidence, commands, rendered actions, and expected claims. For every non-applicable dependency, permission, migration, rollout, or rollback item, record `None` with reasoning. Match the material-change list in Global Constraints. Reject speculative cleanup and out-of-scope observations.
+Require every correction to map to a demonstrated current-PR gap. Require explicit complete-review, current-PR, affected/regression, and deferred-gap sets. Require the intended base, distinct head, sanitized upstream, branch/worktree action, merge base, pre-existing commit range, full history/diff inspection, and changed-path mapping. Require reproducible redacted repository evidence and commands, rendered actions, sanitized expected claims, and secret identifiers/sources/scopes/availability only. For every non-applicable dependency, permission, migration, rollout, or rollback item, record `None` with reasoning. Match the material-change list in Global Constraints. Reject speculative cleanup, out-of-scope observations, direct base/default commits or pushes, and inseparable unrelated history.
 
 - [ ] **Step 4: Create the durable PR-record contract**
 
@@ -327,6 +334,7 @@ Create `review-ui-against-requirements/references/pr-description.md` with exactl
 ## Approval checkpoint
 ## Actual changes
 ## Final traceability results
+## Deferred authoritative gaps
 ## Rendered evidence
 ## Automated and repository verification
 ## Deviations
@@ -334,7 +342,7 @@ Create `review-ui-against-requirements/references/pr-description.md` with exactl
 ## Remote verification
 ```
 
-Require the approval checkpoint to record direct approval of both final artifacts without inventing a quote or timestamp. `Deviations` says `None` when empty and cannot hide a material change. Remote verification records repository, PR number, base, head, head SHA, non-draft state, title, and description after the final body is updated and refetched.
+Require the approval checkpoint to record direct approval of both final artifacts without inventing a quote or timestamp. Preserve the complete reviewed matrix, current-PR set, affected/regression set, deferred gaps, safe base/head range, complete history/diff inspection, and changed-path map. Require redacted commands and sanitized results globally; exposure blocks publication and names separately authorized rotation/revocation. `Deviations` says `None` when empty and cannot hide a material change. Remote verification records repository, PR number, base, head, head SHA, non-draft state, title, and description after the final body is updated and refetched.
 
 - [ ] **Step 5: Review guidance against every RED result**
 
@@ -369,8 +377,8 @@ Create `review-ui-against-requirements/agents/openai.yaml` with:
 ```yaml
 interface:
   display_name: "Review UI Against Requirements"
-  short_description: "Review, approve, fix, verify, and open a PR"
-  default_prompt: "Use $review-ui-against-requirements to review this implemented UI against its authoritative requirements, obtain my approval of the review and fix plan, implement the fixes, and open a verified ready-for-review PR."
+  short_description: "Review UI; stop clean or open a verified PR"
+  default_prompt: "Use $review-ui-against-requirements to review this implemented UI against its authoritative requirements. If the complete review has no gaps, stop as Review complete without repository changes. Otherwise obtain my approval of the review and current-PR fix plan, implement that scope, and open a verified ready-for-review PR."
 ```
 
 - [ ] **Step 2: Run the bundled validator with a repository-local cache**
@@ -437,7 +445,7 @@ Test a matrix containing a desktop pass, mobile gap, conflicting requirement, an
 
 - [ ] **Step 5: Run the final-PR-record regression**
 
-Test that the agent creates the complete pre-creation record, fetches the PR identity, updates only remote facts, refetches the final body, verifies repository/number/base/head/head SHA/non-draft/title/description, and stops without deployment or merge.
+Test that the agent creates the complete sanitized pre-creation record, preserves current-PR and deferred-gap scope, fetches the PR identity, updates only remote facts, refetches the final body, verifies repository/number/base/head/head SHA/non-draft/title/description, and stops without deployment or merge.
 
 - [ ] **Step 6: Close only demonstrated gaps and re-run affected scenarios**
 
@@ -473,7 +481,7 @@ No open Critical or Important finding may remain. Fix supported findings minimal
 
 - [ ] **Step 2: Update the roadmap**
 
-Change the README row for `review-ui-against-requirements` to a relative link with status `Ready`. Remove the `create-persona` row entirely. Leave all other roadmap rows and statuses unchanged.
+Change the README row for `review-ui-against-requirements` to a relative link. Use status `Ready` only after the latest required behavioral reruns, package validation, complete diff inspection, and independent final review pass; use `In review` while later correction evidence is pending. Remove the `create-persona` row entirely. Leave all other roadmap rows and statuses unchanged.
 
 - [ ] **Step 3: Run final structural verification**
 
@@ -496,3 +504,52 @@ git commit -m 'docs: finalize UI requirements review skill'
 After the full inspection passes, switch to the primary checkout, verify local `main` is clean and matches the inspected base, merge `feat/review-ui-against-requirements` into local `main` using the repository's established non-interactive merge method, and push `main` to `origin`. Verify the remote `main` SHA equals the local merged SHA. Remove the finished worktree and feature branch only after remote verification succeeds.
 
 If `main`, the feature head, or any verification evidence changed after inspection, stop, re-establish the complete evidence, and do not merge or push stale work.
+
+---
+
+### Task 6: Resolve the Final Branch Review Contract Findings
+
+**Files:**
+- Modify: `AGENTS.md`
+- Modify: `README.md`
+- Modify: `docs/superpowers/specs/2026-08-28-review-ui-against-requirements-design.md`
+- Modify: `docs/superpowers/plans/2026-08-30-review-ui-against-requirements.md`
+- Modify: `review-ui-against-requirements/SKILL.md`
+- Modify: `review-ui-against-requirements/agents/openai.yaml`
+- Modify: `review-ui-against-requirements/references/review-report.md`
+- Modify: `review-ui-against-requirements/references/fix-plan.md`
+- Modify: `review-ui-against-requirements/references/pr-description.md`
+- Modify: `review-ui-against-requirements/references/acceptance-scenarios.md`
+
+**Interfaces:**
+- Consumes: the final `WITH FIXES` branch review and six controller-owned fresh-context pre-fix outputs.
+- Produces: corrected authority, no-change, phase, branch-range, redaction, and repository-integration contracts plus preserved RED evidence. Final approval and `Ready` status require a separate controller-owned GREEN and final-review pass.
+
+- [ ] **Step 1: Preserve the final-review RED evidence**
+
+Append the final branch-review verdict and all six exact pre-fix outputs to `references/acceptance-scenarios.md`. Assess each output against the corrected invariant that applies. Record `None` when it complies. The all-pass output is a failure because it reports `Blocked` instead of `Review complete`; do not invent failures in otherwise compliant outputs.
+
+- [ ] **Step 2: Correct the portable contracts and approved documents**
+
+Require a non-empty authority set and at least one observable requirement; add `Review complete`; distinguish complete review scope from the current-PR gap and affected/regression sets while retaining deferred gaps; require a distinct safe head plus complete base-to-head history/diff and changed-path mapping; apply global redaction and separate rotation/revocation authorization; and persist stale-state and remote-main SHA verification in `AGENTS.md`. Set the roadmap to `In review` while fresh correction evidence is pending.
+
+- [ ] **Step 3: Run the six controller-owned fresh-context GREEN reruns**
+
+The controller, not the correction implementer, dispatches these six isolated reruns against the corrected skill and records exact outputs:
+
+1. `final-green-1-missing-authority.md`
+2. `final-green-2-all-pass.md`
+3. `final-green-3-phase.md`
+4. `final-green-4-default-branch.md`
+5. `final-green-5-unrelated-history.md`
+6. `final-green-6-secrets.md`
+
+The sixth rerun must require publication blocking and explicitly separate the authorization to rotate/revoke or perform destructive cleanup from the review/fix approval.
+
+- [ ] **Step 4: Re-run structural and branch verification**
+
+Run the Agent Skills validator, strict UTF-8 and instructional ASCII checks, exact six-file package inventory, unfinished-marker scan, `git diff --check`, complete base-to-head commit and diff inspection, changed-path mapping, and worktree/index checks. Preserve the guarded local validator-cache cleanup.
+
+- [ ] **Step 5: Obtain a fresh independent final review before finalization**
+
+Do not treat Task 5's earlier `APPROVED`, final-verification mapping, or roadmap `Ready` evidence as current for the corrected contracts. A fresh independent review must clear all Critical and Important findings after the six GREEN reruns. Only then may the controller update current final evidence, restore `Ready`, integrate, push, verify remote `main` equals local merged `main`, and clean up the worktree/branch.
