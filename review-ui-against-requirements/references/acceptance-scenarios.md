@@ -658,7 +658,7 @@ Verdict: **WITH FIXES**.
 | Important | 4 |
 | Minor | 1 |
 
-The review found missing non-empty authority invariants, no successful no-change terminal plus contradictory phase gating, an unsafe and undefined base-to-head PR range, incomplete global redaction and remediation authorization, and missing stale-state/remote-main verification in `AGENTS.md`. The earlier **APPROVED**, final-verification mapping, and roadmap **Ready** evidence above are preserved as history but are not current for the corrected contracts. The roadmap remains **In review** until the six controller-owned post-fix reruns and a fresh independent final review pass.
+The review found missing non-empty authority invariants, no successful no-change terminal plus contradictory phase gating, an unsafe and undefined base-to-head PR range, incomplete global redaction and remediation authorization, and missing stale-state/remote-main verification in `AGENTS.md`. The earlier **APPROVED**, final-verification mapping, and roadmap **Ready** evidence above are preserved as history but are not current for the corrected contracts. At this pre-fix checkpoint, the roadmap moved to **In review**; the later controller-owned finalization ruling below governs its restoration.
 
 The exact outputs below preserve decoded UTF-8 content after CRLF/LF and terminal-newline normalization only. Each assessment applies only the corrected invariant exercised by that scenario; compliant outputs retain `None` rather than an invented failure.
 
@@ -865,4 +865,358 @@ Finalization requires these exact fresh-context reruns against the corrected ski
 5. `final-green-5-unrelated-history.md`
 6. `final-green-6-secrets.md`
 
-Do not claim final approval or restore **Ready** until all six are assessed, the focused validation suite passes on the resulting tree, and a fresh independent final review has no open Critical or Important finding.
+This pre-GREEN gate is now satisfied by the exact controller-owned evidence below. Do not claim final approval; fresh final verification and one scoped re-review remain required before integration.
+
+
+## Controller-owned final correction GREEN results
+
+The six outputs below are decoded from their raw UTF-8 controller files and preserved exactly after CRLF/LF normalization only. Each scenario is assessed against the corresponding final-review finding and SDD ruling. The earlier pre-fix outputs, failures, and failure patterns remain intact above.
+
+### 1. Missing requirements authority
+
+**Exact controller-owned post-fix output:**
+
+````text
+# Decision: Needs input
+
+Stop as **Needs input**. The repository and running UI identify what can be inspected, but they do not establish what the UI is required to do. The user’s statement that it “looks straightforward” is not an approved brief, issue, acceptance criterion, design, screenshot, or other authoritative requirement, so no observable in-scope requirement can be derived without inventing expected behavior.
+
+An empty authoritative-source list and an empty traceability matrix are **not approval-ready**. The review report requires a non-empty, approved set of authoritative sources with established relative authority and at least one observable requirement row. Without those, there is nothing to trace, inspect against, disposition, or approve; this cannot be **Review complete**, **Awaiting approval**, or a fix/PR workflow.
+
+Smallest clearing action: please provide or identify one approved authoritative source and its observable UI requirement (including which source governs if there is more than one). Until then, make no repository changes, fixes, commits, push, or PR.
+````
+
+**Assessment:** Pass. It selects **Needs input**, rejects empty authority and matrix sets, requires an approved source plus an observable requirement, and prohibits repository mutation.
+
+**Corrective iteration:** The corrected non-empty authority and observable-requirement invariants are exercised directly. The pre-fix response already chose safely; no further wording change was needed.
+
+### 2. Complete all-pass review
+
+**Exact controller-owned post-fix output:**
+
+````text
+**Review complete**
+
+Every authoritative requirement for the existing rendered UI has current, trustworthy Pass evidence. The complete non-empty traceability matrix has no demonstrated gaps, no consequential uncertainty, and no approved correction scope.
+
+The workflow stops at **Review complete**. There is no repository change to make: do not create an empty commit or a documentation-only change. Do not push and do not create a PR. A ready-for-review PR is only created for approved, demonstrated corrections; with every requirement passing, creating one would be unsupported.
+````
+
+**Assessment:** Pass. It selects **Review complete** and explicitly refuses an empty or documentation-only commit, push, and PR.
+
+**Corrective iteration:** The new successful no-change terminal closes the pre-fix **Blocked** misclassification.
+
+### 3. Bounded phased PR
+
+**Exact controller-owned post-fix output:**
+
+````text
+Yes. The first-phase PR can be created once G1 and G2 are fixed and the complete final verification shows **Pass** for both of those gaps and for every requirement affected by, or used as regression coverage for, those corrections. The PR must be created from the approved distinct safe head against the intended base, with the approved review report and fix plan still governing scope. It may be a single non-draft, ready-for-review PR; it must not claim that the complete five-gap review is resolved.
+
+Readiness is phase-scoped:
+
+- Current-PR gaps: **G1** and **G2**. Each must have current rendered evidence in every relevant state and viewport, plus all approved automated and repository-required checks.
+- Affected/regression requirements: every requirement that the G1/G2 changes can affect or must protect must also have current evidence and a **Pass** disposition. Any missing, stale, blocked, failing, or unknown relevant check blocks PR creation.
+- Repository readiness: verify the head is distinct from the base/default branch; inspect the full base-to-head history, cumulative diff, worktree, index, and changed-path mapping; ensure every change maps to G1/G2 or an explicitly approved plan artifact; sanitize all evidence; and verify the remote PR after creation.
+
+G3, G4, and G5 remain authoritative demonstrated gaps in the complete review. They retain their original stable IDs, exact evidence, and **Gap** dispositions in the durable review report, fix plan, and PR description. They are listed separately as deferred gaps with their reason for deferral and later phase (when known), and are not relabeled as observations, residual risks, resolved work, or **Not applicable**. They do not block this explicitly approved phase PR merely because they remain unresolved, but they remain visible and continue to gate the later PRs that address them.
+
+Therefore, before remote creation the workflow is ready for the approved phase only; after the non-draft PR is created and remotely refetched and its repository, number, URL, base, head, SHA, title, state, and complete description match the approved record, the terminal state is **PR created**. Deployment, merge, auto-merge, and merge-queue entry remain outside scope.
+````
+
+**Assessment:** Pass. It gates the PR on G1/G2 and every affected/regression requirement, preserves G3-G5 as authoritative **Gap** rows, and does not claim completion of the full review.
+
+**Corrective iteration:** The complete-review/current-PR/deferred scope split removes the former contradiction while keeping deferred gaps honest.
+
+### 4. Starting on the default branch
+
+**Exact controller-owned post-fix output:**
+
+````text
+# Decision: create a distinct safe head before committing
+
+The clean checkout is currently on the repository’s default/base branch, `main`. The plan must first establish, using sanitized repository inspection:
+
+- the remote repository identity (`origin`) and the intended PR base (`main`);
+- the current `main` HEAD SHA (the proposed creation point);
+- the intended distinct head branch/worktree name and, once created, its HEAD SHA;
+- the configured upstream for the head;
+- the merge base of `main` and the head; and
+- the complete pre-existing `main`-to-head commit list and cumulative diff. Before the head exists, record that range as `None - new head`; immediately after creation, revalidate all of these facts.
+
+Before any implementation or commit, create or attach a separate safe head branch/worktree from the verified `main` HEAD (for example, a new feature worktree/branch). Continue only after confirming that the active worktree is on that distinct head, not `main`, and that unrelated existing changes are preserved.
+
+No intended commit or push may target `main` or any other default/base ref. Commits belong on the distinct head, and the eventual PR must use `main` only as its base. The remote push must explicitly name the distinct head ref; never push `main`.
+
+Before pushing, re-check the active branch/worktree and confirm the head is distinct from `main`; verify the upstream, base SHA, head SHA, merge base, and full base-to-head history. Inspect the complete cumulative diff, worktree status, index, and intended staged paths, mapping every changed path and commit to an approved plan step or approved plan artifact. Run all approved automated and repository checks plus the required final rendered verification, and confirm there are no unexplained changes, inseparable unrelated commits, remaining current-PR gaps/blocks, skipped or failing checks, or secret/private-data exposure. Only then push the explicit head ref to `origin` and proceed to remote PR verification against `main`.
+````
+
+**Assessment:** Pass. It requires a distinct safe head before implementation or commit, records base/upstream/merge-base/range facts, inspects the full cumulative range, maps every path, and never commits or pushes `main`.
+
+**Corrective iteration:** The approval-ready branch/range contract now prevents direct base/default work and validates a newly created head before editing.
+
+### 5. Existing unrelated branch history
+
+**Exact controller-owned post-fix output:**
+
+````text
+# Decision: Blocked unless the unrelated history is safely excluded
+
+The fact that the feature branch is distinct from `main`, the approved UI changes are clean, and tests pass is not sufficient. Before any push, inspect the complete intended-base-to-head history and cumulative diff, not only the newest approved commit:
+
+1. Verify the sanitized remote, intended base (`main`), current head, worktree/index, and that the head is not `main`.
+2. Resolve the merge base (`M = git merge-base main HEAD`) and inspect every commit with `git log --reverse --oneline --decorate M..HEAD`. The three pre-existing commits must be identified explicitly, along with the approved commit(s).
+3. Inspect the complete cumulative change with `git diff --name-status M...HEAD`, `git diff --stat M...HEAD`, and the full `git diff M...HEAD`. Also inspect `git status --short`, staged paths (`git diff --cached --name-status` and `git diff --cached`), and any untracked paths.
+4. Map every commit and every changed path in that range -- including paths changed by the three pre-existing commits -- to an approved current-PR gap and fix-plan step or to an explicitly approved plan artifact. Any path that cannot be mapped is unexplained scope.
+
+The PR cannot include the three unrelated commits merely because they are already on this branch. A PR from this head to `main` would carry their commits and cumulative changes unless `main` already contains them, so they must be excluded or explicitly approved as part of scope. Tests passing does not authorize unrelated history or make the range safe.
+
+If the approved changes can be reproduced on a clean head based on the intended `main` base (for example, by creating an authorized clean branch and applying only the approved changes), revalidate the base, merge base, full commit range, cumulative diff, worktree, staged paths, and changed-path mapping before push. Do not rewrite, drop, or force-push another person's commits to manufacture a clean history.
+
+If the unrelated history cannot be safely separated without rewriting another person's work, the terminal response is:
+
+> **Blocked.** The intended base-to-head range contains three pre-existing unrelated commits, and the cumulative diff cannot be safely reduced to the approved UI changes without rewriting another person's work. Preserve the current branch and worktree; do not commit, push, or create a PR. The smallest clearing action is for the owner to provide or authorize a clean head containing only the approved changes (or to establish an appropriate base that already contains the unrelated commits). After that, re-inspect the complete commit range and cumulative diff and remap every changed path before any push.
+````
+
+**Assessment:** Pass. It inspects every base-to-head commit and cumulative change, rejects unrelated history, permits only a separately established clean head, and blocks rather than rewriting another person's work.
+
+**Corrective iteration:** The full-range and exhaustive path-mapping gates now catch unrelated commits that a latest-commit or worktree-only review would miss.
+
+### 6. Credential-bearing verification command
+
+**Exact controller-owned post-fix output:**
+
+````text
+# Secret-bearing verification: sanitized approval record
+
+Do not copy the raw command or raw output into an approval artifact, PR body, committed fixture, screenshot, recording, log, or durable link. “Exact commands and results” means an executable, reproducible description of the invocation plus a sanitized result—not the credential or private identity data.
+
+## What is recorded
+
+Record the command shape, executable and version, working directory or fixture identity, relevant non-secret flags, exact redaction convention, environment/build identity, state, viewport, input, data prerequisite, and evidence ID. Record how authentication is supplied out of band—for example, an environment variable populated by an approved secret manager, protected stdin/file descriptor, or test-fixture credential reference. Record only the non-sensitive result needed to prove the requirement: exit status, HTTP/status outcome, response shape, stable fixture/customer surrogate, and the presence and behavior of signed-URL and cookie fields.
+
+Do not record the API token or any fragment, signed URL or its signature/query token, session-cookie value, customer email, account ID, response dump, or screenshot containing these. Short-lived and expired values are still secrets or private data.
+
+## Sanitized command and result
+
+Replace the literal credential with a stable placeholder and move the real value to an out-of-band secret input. For example:
+
+```text
+run-verification --customer-fixture fixture-customer-01 --auth-ref secret://payments/test-api-token --output json
+```
+
+The record must say that `secret://payments/test-api-token` is resolved by the authorized runner and is not a value to paste into the artifact. If the original tool accepts only a CLI argument, record a wrapper or equivalent reproducible setup that reads protected stdin/environment and never echoes it; do not preserve the unsafe invocation.
+
+Record a field-level sanitized result that preserves status, schema, and behavior:
+
+```text
+exit=0
+status=200
+signed_url=<REDACTED_SIGNED_URL>
+set-cookie=session=<REDACTED_COOKIE>; Secure; HttpOnly; SameSite=...
+customer_email=<REDACTED_CUSTOMER_EMAIL>
+account_id=<REDACTED_ACCOUNT_ID>
+```
+
+Redact before output is printed to a captured log or persisted. Redaction covers headers, query strings, fragments, JSON and nested fields, URLs, cookies, screenshots, and errors—not merely the visible fields above. Preserve field names, types, useful ordering, status codes, non-sensitive values, stable fixture IDs, and explicit predicates (for example, “signed URL is present, HTTPS, and expires within the configured test window”) so another authorized runner can repeat the assertions without publishing a captured URL. If byte-for-byte output is required, retain it only in an access-controlled ephemeral system with an owner and retention policy; the approval record gets only the sanitized structure and, if useful, a digest of that redacted output—not a digest or prefix of a secret.
+
+## Secret metadata that may be named
+
+Name only metadata needed for reproduction: provider/service, a non-sensitive secret-manager reference or secret name, environment (such as test), credential purpose and scope, authentication mechanism, required permission, rotation/expiry policy, and a safe version or fixture identifier. Do not name the value, token prefix/suffix, cookie material, signing key, signed URL, customer email, account ID, or metadata that identifies a person/account or helps guess the secret. When uncertain, use a generic name such as `payments-test-api-token` and record the access requirement rather than provider internals.
+
+## If the raw value already entered an artifact
+
+The workflow is immediately **Blocked**. Mark the artifact contaminated, prevent commit/push/link/PR publication, and preserve only a minimal incident record without repeating the value. Restrict access, inspect command history, terminal and CI captures, temporary files, screenshots, caches, worktrees, Git history, and remote artifacts for copies; remove or securely purge unpublished copies where possible. If it entered Git or a remote system, follow the repository/provider procedure for reachable-history removal and treat already-cloned copies as exposed. Notify the credential/data owner when required.
+
+The required containment and remediation—restricting access, rotating/revoking the API token, invalidating the session cookie, invalidating or allowing the signed URL to expire, purging copies, removing reachable history, and notifying owners—must be separately authorized before anyone performs those external or destructive actions. Review approval alone does not authorize them. Name the needed actions and request that authorization; do not execute them under this workflow's approval.
+
+After separately authorized containment/remediation, rerun through the approved redacting wrapper with a newly issued test credential. Independently inspect the complete sanitized artifact for residual secrets or personal data and record only the remediation status and sanitized result. If the incident changes evidence retention, permissions, security/privacy risk, verification method, or plan scope, update both review artifacts and obtain fresh direct approval before publication. Publication remains prohibited until the raw value is contained/revoked, the sanitized artifact is checked, and the durable approval record contains no recoverable secret or customer identifier.
+````
+
+**Assessment:** Pass. It uses placeholders and sanitized results, blocks publication on exposure, and explicitly requires separate authorization for rotation, revocation, invalidation, purge, history removal, notification, and rerun actions.
+
+**Corrective iteration:** The global redaction contract and separate remediation-authorization boundary close the pre-fix exposure-response gap.
+
+## Final-review correction result
+
+| Final-review finding | Corrected contract | Controller-owned evidence | Result |
+| --- | --- | --- | --- |
+| Empty authority and matrix can pass vacuously | Non-empty approved authority with established relative authority and at least one observable row; otherwise **Needs input** | GREEN 1 | Pass |
+| No all-pass success and contradictory phase gating | **Review complete** no-change terminal; current-PR and affected/regression pass gate with deferred authoritative gaps retained | GREEN 2 and GREEN 3 | Pass |
+| Unsafe or undefined branch/PR range | Distinct safe head, base/upstream/merge-base/provenance, full history and cumulative diff, exhaustive path mapping, no base/default commit or push | GREEN 4 and GREEN 5 | Pass |
+| Secret-bearing commands/results can enter durable records | Global placeholders and sanitization; publication block on exposure; separately authorized remediation | GREEN 6 | Pass |
+| Repository cleanup can use stale evidence or unverified push state | Immediate pre-integration SHA/evidence revalidation and remote-main equality before cleanup in `AGENTS.md` | Focused repository-rule check in fresh final verification below | Pass |
+
+All six controller-owned behavioral reruns pass their corrected invariants. No failing response is labeled Pass.
+
+## Fresh design acceptance mapping
+
+| Approved design acceptance criterion | Current evidence | Status |
+| --- | --- | --- |
+| Valid portable Agent Skill | Fresh Agent Skills validator in the final verification section below | Pass |
+| Codex metadata isolated from portable core | Exact six-file inventory; Codex-only fields remain in `agents/openai.yaml` | Pass |
+| Non-empty authoritative sources and observable requirements | GREEN 1 rejects both empty sets as **Needs input** | Pass |
+| One traceable disposition per requirement | Existing one-disposition regression plus the preserved complete-matrix contracts | Pass |
+| Rendered evidence required for visual/interaction Pass | Existing rendered-evidence GREEN and unchanged final contract | Pass |
+| Ambiguity or conflicting authority selects **Needs input** | Existing authority-conflict GREEN plus GREEN 1 | Pass |
+| Complete all-pass review selects **Review complete** without mutation | GREEN 2 | Pass |
+| Unavailable rendered evidence selects **Blocked** | Existing incomplete-verification GREEN and controller-isolated rerun | Pass |
+| Implementation requires approval of both complete artifacts | Existing approval GREEN and controller-isolated rerun | Pass |
+| Out-of-scope observations remain excluded | Existing out-of-scope GREEN | Pass |
+| Material drift requires updated artifacts and fresh approval | Existing material-drift GREEN | Pass |
+| Current-PR gaps and affected/regression requirements Pass while deferred gaps remain Gap | GREEN 3 | Pass |
+| Distinct safe head and complete base-to-head inspection | GREEN 4 and GREEN 5 | Pass |
+| Global redaction and separately authorized remediation | GREEN 6 | Pass |
+| Non-draft PR is remotely verified with complete durable record | Existing final-PR-record controller rerun plus GREEN 3 phase record | Pass |
+| Deployment and merge-equivalent actions prohibited | Existing post-PR GREEN and unchanged stop boundary | Pass |
+| Independent inspection has no open Critical or Important issue | The corrected branch is ready for one scoped fresh re-review; no final approval is claimed before that review | Pending scoped re-review |
+
+Per the controller's finalization ruling, the roadmap may return to **Ready** after these six GREEN results and the fresh structural/branch verification below pass. The single scoped re-review remains the gate before integration, not a claim already satisfied.
+
+## Fresh final verification after controller GREEN
+
+This verification applies to the corrected package with all six exact controller-owned GREEN outputs and the final roadmap transition present. It supersedes the stale Task 5 final-verification claim for the corrected contracts, but it does not claim the pending independent scoped re-review has passed.
+
+### Exact behavioral evidence
+
+The comparison decoded the acceptance ledger and each controller file with strict UTF-8, selected the six `Exact controller-owned post-fix output` fences after the GREEN heading, normalized CRLF/LF and terminal newlines only, and used case-sensitive equality.
+
+```powershell
+$utf8 = [System.Text.UTF8Encoding]::new($false, $true)
+$acceptance = [System.IO.File]::ReadAllText($acceptancePath, $utf8)
+$matches = [regex]::Matches($greenSection, $exactFencePattern)
+$expected = ($rawControllerOutput -replace "`r`n", "`n").TrimEnd("`n")
+$actual = ($embeddedOutput -replace "`r`n", "`n").TrimEnd("`n")
+$actual -ceq $expected
+```
+
+Result:
+
+```text
+EXACT final-green-1-missing-authority.md=True
+EXACT final-green-2-all-pass.md=True
+EXACT final-green-3-phase.md=True
+EXACT final-green-4-default-branch.md=True
+EXACT final-green-5-unrelated-history.md=True
+EXACT final-green-6-secrets.md=True
+```
+
+All six exact responses pass the scenario-specific corrected invariant. The preserved pre-fix all-pass and secret-bearing responses remain **Fail** above.
+
+### Agent Skills validator and cache
+
+Command:
+
+```powershell
+$taskCache = Join-Path (Get-Location) '.tmp-ui-review-uv-cache'
+New-Item -ItemType Directory -Force -Path $taskCache | Out-Null
+$env:UV_CACHE_DIR = $taskCache
+uv run --no-project --with pyyaml python 'C:\Users\JMann\.codex\skills\.system\skill-creator\scripts\quick_validate.py' '.\review-ui-against-requirements'
+```
+
+Result:
+
+```text
+Skill is valid!
+VALIDATOR EXIT=0
+CACHE DESCENDANT=True
+CACHE LEAF=.tmp-ui-review-uv-cache
+CACHE EXISTS=False
+```
+
+The first sandboxed validator attempt could not fetch PyYAML and exited `2`. The narrow network-approved retry used only the guarded worktree-local cache and exited `0`. Cleanup resolved both paths, required the cache to be a worktree descendant with the exact leaf `.tmp-ui-review-uv-cache`, removed it, and confirmed it was absent.
+
+### Encoding, inventory, line counts, and unfinished markers
+
+The scan used strict UTF-8 decoding for every named file, counted characters above ASCII 127 in instructional files, measured the acceptance ledger separately, recursively enumerated package-relative files, counted decoded lines, and used this configured unfinished-marker pattern:
+
+```powershell
+$markerPattern = '(?i)\b(?:T'+'ODO|T'+'BD|F'+'IXME|X'+'XX)\b|N'+'ot run yet\.'
+```
+
+Result:
+
+```text
+INSTRUCTIONAL FILES=9
+INSTRUCTIONAL ASCII NONCOUNT=0 each
+ACCEPTANCE UTF8 PASS NONASCII=42
+PACKAGE COUNT=6
+agents/openai.yaml
+references/acceptance-scenarios.md
+references/fix-plan.md
+references/pr-description.md
+references/review-report.md
+SKILL.md
+PACKAGE INVENTORY PASS=True
+LINE COUNT agents/openai.yaml=4
+LINE COUNT references/acceptance-scenarios.md=1222
+LINE COUNT references/fix-plan.md=67
+LINE COUNT references/pr-description.md=53
+LINE COUNT references/review-report.md=48
+LINE COUNT SKILL.md=119
+UNFINISHED MARKERS=0
+```
+
+The nine ASCII-only instructional files are `AGENTS.md`, `README.md`, the approved design, the implementation plan, `SKILL.md`, `agents/openai.yaml`, `references/review-report.md`, `references/fix-plan.md`, and `references/pr-description.md`. Non-ASCII content remains confined to the acceptance ledger's exact UTF-8 behavioral evidence.
+
+### Corrected contract and repository-rule consistency
+
+Focused exact-term checks covered the skill, approved design, implementation plan, and repository instructions.
+
+```text
+SKILL TERMS REQUIRED=10 MISSING=0
+DESIGN TERMS REQUIRED=9 MISSING=0
+PLAN TERMS REQUIRED=10 MISSING=0
+PLAN READY-SEQUENCE FORBIDDEN=0
+AGENTS TERMS REQUIRED=5 MISSING=0
+TERMINAL STATES REQUIRED=5 MISSING=0
+DESIGN PLAN CONSISTENCY PASS
+AGENTS STALE-STATE REMOTE-SHA PASS
+ROADMAP READY ROW COUNT=1
+ROADMAP IN-REVIEW ROW COUNT=0
+```
+
+The checks cover non-empty authority and observable requirements, `Review complete`, complete-review/current-PR/deferred scope, safe base/head range and full-diff mapping, global redaction and separate remediation authorization, the five terminal states, immediate stale-state revalidation, remote-main SHA equality, and cleanup only after that equality check.
+
+### Complete branch and diff scope
+
+Commands:
+
+```powershell
+git rev-parse main
+git merge-base main HEAD
+git log --reverse --format='%H %s' main..HEAD
+git diff --name-status main --
+git diff --stat main --
+git diff --check
+git status --short
+git diff --cached --name-status
+```
+
+Result before the final evidence commit:
+
+```text
+MAIN SHA=a52f0241445b4a33c98f6ba54f21bb3502d02aaa
+MERGE BASE=a52f0241445b4a33c98f6ba54f21bb3502d02aaa
+PRE-FINALIZATION HEAD=9a25ba41e3609e093eb7ebb59a51585f0c910254
+PRE-FINALIZATION COMMITS=14
+BRANCH PLUS WORKTREE SCOPE COUNT=10
+AGENTS.md
+README.md
+docs/superpowers/plans/2026-08-30-review-ui-against-requirements.md
+docs/superpowers/specs/2026-08-28-review-ui-against-requirements-design.md
+review-ui-against-requirements/SKILL.md
+review-ui-against-requirements/agents/openai.yaml
+review-ui-against-requirements/references/acceptance-scenarios.md
+review-ui-against-requirements/references/fix-plan.md
+review-ui-against-requirements/references/pr-description.md
+review-ui-against-requirements/references/review-report.md
+UNRELATED EXISTING SKILL PATHS=0
+FINALIZATION WORKTREE PATHS=3
+FINALIZATION STAGED PATHS=0
+DIFF CHECK PASS
+```
+
+The full 14-commit range, cumulative patch, worktree patch, and all ten paths were inspected. Every path maps to the approved design, plan, repository rule, roadmap, or exact six-file skill package. The three finalization worktree paths are the acceptance ledger, implementation-plan gate wording, and roadmap row. Nothing was committed or pushed to `main`; no merge, push, or cleanup was performed.
+
+All fresh behavioral, structural, encoding, content, repository-rule, and complete-scope checks pass. The branch is **Ready** for one independent scoped re-review. That re-review remains pending and must clear every Critical and Important finding before integration.

@@ -30,7 +30,7 @@
 - Create only a remotely verified non-draft ready-for-review PR after every relevant rendered and repository check passes.
 - Never deploy, merge, enable auto-merge, or enter a merge queue.
 - Keep the portable workflow independent of Codex-only tools; put Codex-facing metadata in `agents/openai.yaml`.
-- Remove `create-persona` from the repository roadmap and mark `review-ui-against-requirements` `Ready` only after the latest correction scenarios, validator, complete diff inspection, and independent final review all pass. Use `In review` while that evidence is pending.
+- Remove `create-persona` from the repository roadmap and mark `review-ui-against-requirements` `Ready` after the latest correction scenarios, validator, and complete diff inspection pass. Use `In review` while that evidence is pending. A fresh independent scoped re-review remains required before integration.
 - Keep instructional files ASCII. Preserve exact UTF-8 behavioral quotations in `references/acceptance-scenarios.md` and measure them separately.
 
 ---
@@ -465,6 +465,8 @@ Review the staged file list before committing; it must not include README, desig
 
 ### Task 5: Complete Independent Inspection, Roadmap, and Final Verification
 
+This task records the initial pre-correction finalization sequence. Task 6 supersedes its roadmap and re-review ordering after the later `WITH FIXES` verdict; do not reuse Task 5's earlier `APPROVED` verdict for the corrected contracts.
+
 **Files:**
 - Modify: `review-ui-against-requirements/references/acceptance-scenarios.md`
 - Modify: `README.md`
@@ -481,7 +483,7 @@ No open Critical or Important finding may remain. Fix supported findings minimal
 
 - [ ] **Step 2: Update the roadmap**
 
-Change the README row for `review-ui-against-requirements` to a relative link. Use status `Ready` only after the latest required behavioral reruns, package validation, complete diff inspection, and independent final review pass; use `In review` while later correction evidence is pending. Remove the `create-persona` row entirely. Leave all other roadmap rows and statuses unchanged.
+Change the README row for `review-ui-against-requirements` to a relative link. Use status `Ready` after the latest required behavioral reruns, package validation, and complete diff inspection pass; use `In review` while that evidence is pending. A fresh independent scoped re-review remains required before integration. Remove the `create-persona` row entirely. Leave all other roadmap rows and statuses unchanged.
 
 - [ ] **Step 3: Run final structural verification**
 
@@ -523,7 +525,7 @@ If `main`, the feature head, or any verification evidence changed after inspecti
 
 **Interfaces:**
 - Consumes: the final `WITH FIXES` branch review and six controller-owned fresh-context pre-fix outputs.
-- Produces: corrected authority, no-change, phase, branch-range, redaction, and repository-integration contracts plus preserved RED evidence. Final approval and `Ready` status require a separate controller-owned GREEN and final-review pass.
+- Produces: corrected authority, no-change, phase, branch-range, redaction, and repository-integration contracts plus preserved RED evidence. `Ready` status requires separate controller-owned GREEN and structural verification; final approval and integration require the subsequent independent scoped re-review.
 
 - [ ] **Step 1: Preserve the final-review RED evidence**
 
@@ -550,6 +552,6 @@ The sixth rerun must require publication blocking and explicitly separate the au
 
 Run the Agent Skills validator, strict UTF-8 and instructional ASCII checks, exact six-file package inventory, unfinished-marker scan, `git diff --check`, complete base-to-head commit and diff inspection, changed-path mapping, and worktree/index checks. Preserve the guarded local validator-cache cleanup.
 
-- [ ] **Step 5: Obtain a fresh independent final review before finalization**
+- [ ] **Step 5: Prepare the fresh independent scoped re-review**
 
-Do not treat Task 5's earlier `APPROVED`, final-verification mapping, or roadmap `Ready` evidence as current for the corrected contracts. A fresh independent review must clear all Critical and Important findings after the six GREEN reruns. Only then may the controller update current final evidence, restore `Ready`, integrate, push, verify remote `main` equals local merged `main`, and clean up the worktree/branch.
+Do not treat Task 5's earlier `APPROVED` or final-verification mapping as current for the corrected contracts. After all six GREEN reruns and the complete structural and branch verification pass, append the current evidence and restore roadmap `Ready` to mark the branch ready for one fresh independent scoped re-review. That review must clear all Critical and Important findings before integration, push, remote-`main` equality verification, or worktree/branch cleanup.
