@@ -1,0 +1,4 @@
+interface:
+  display_name: "Daily Briefing"
+  short_description: "Create a focused, evidence-backed daily brief"
+  default_prompt: "Use $daily-briefing to create today's concise briefing from my available sources."
