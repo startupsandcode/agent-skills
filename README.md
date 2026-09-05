@@ -12,4 +12,4 @@ Portable skills using the [Agent Skills](https://agentskills.io/) format, author
 | [`review-ui-against-requirements`](review-ui-against-requirements/) | Ready |
 | [`daily-briefing`](daily-briefing/) | Ready |
 | [`deploy-and-verify`](deploy-and-verify/) | Ready |
-| `prepare-for-interview` | Coming soon |
+| [`prepare-for-interview`](prepare-for-interview/) | Ready |
