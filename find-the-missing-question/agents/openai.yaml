@@ -1,0 +1,4 @@
+interface:
+  display_name: "Find the Missing Question"
+  short_description: "Surface key assumptions and test them cheaply"
+  default_prompt: "Use $find-the-missing-question to identify the assumption that could change this decision and propose the smallest useful test."
