@@ -1,5 +1,7 @@
 # Acceptance Transcript
 
+All scenarios underlying these outputs are fictional. Names, addresses, appointments, health details (including therapy and panic attacks), messages, and work situations are invented test material, not personal records or claims about John or other real people. These are actual agent responses to fictional prompts, not transcripts of real-life events.
+
 These are the exact user-facing outputs returned by independent agents. Prompts and expected invariants are in [acceptance-scenarios.md](acceptance-scenarios.md).
 
 ## S1 wording micro-test - no-guidance controls

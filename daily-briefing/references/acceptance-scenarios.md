@@ -1,5 +1,7 @@
 # Behavioral Acceptance Scenarios
 
+The prompts below are fictional test scenarios. Names, addresses, appointments, health details (including therapy and panic attacks), messages, and work situations are invented test inputs, not personal records or claims about John or other real people. The evaluation results describe actual agent behavior on those fictional inputs.
+
 Exact agent outputs from the final scenario runs and the ten-sample wording test are preserved in [acceptance-transcript.md](acceptance-transcript.md).
 
 ## Reproducible prompts
