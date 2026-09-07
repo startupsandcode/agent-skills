@@ -1,0 +1,6 @@
+interface:
+  display_name: "Wrap Up Chat"
+  short_description: "Close chats with a recap and practical next steps"
+  default_prompt: "Use $wrap-up-chat to summarize this conversation, recommend my next step, and leave any useful context-specific advice."
+policy:
+  allow_implicit_invocation: true

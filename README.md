@@ -31,6 +31,7 @@ In Codex CLI or the IDE extension, type `$` to select an installed skill, or inc
 | [`deploy-and-verify`](deploy-and-verify/) | `$deploy-and-verify deploy commit <SHA> to this project's staging environment using its documented release process, then verify the login flow. This authorizes the staging deployment.` |
 | [`prepare-for-interview`](prepare-for-interview/) | `$prepare-for-interview prepare me for a 45-minute engineering leadership interview using this job description and my resume. Include stories, questions to ask, and practice prompts.` |
 | [`find-the-missing-question`](find-the-missing-question/) | `$find-the-missing-question we want to build a chatbot because five users requested one. Our goal is fewer abandoned purchases. What assumption should we test first?` |
+| [`wrap-up-chat`](wrap-up-chat/) | `$wrap-up-chat wrap up this chat with a short summary, my best next step, and any useful parting advice.` |
 
 ## Skills
 
@@ -44,3 +45,4 @@ In Codex CLI or the IDE extension, type `$` to select an installed skill, or inc
 | [`deploy-and-verify`](deploy-and-verify/) | Ready |
 | [`prepare-for-interview`](prepare-for-interview/) | Ready |
 | [`find-the-missing-question`](find-the-missing-question/) | Ready |
+| [`wrap-up-chat`](wrap-up-chat/) | Ready |
