@@ -1,0 +1,4 @@
+interface:
+  display_name: "Convene Panel"
+  short_description: "Discuss decisions with a tailored panel and judge"
+  default_prompt: "Use $convene-panel to assemble a tailored panel for this project or topic, show the discussion, and work with me through the judge before execution."

@@ -23,6 +23,7 @@ In Codex CLI or the IDE extension, type `$` to select an installed skill, or inc
 
 | Skill | Example prompt |
 |---|---|
+| [`convene-panel`](convene-panel/) | `$convene-panel help choose the next experiment for this project. Assemble separate panelists, let me watch their discussion, and work with me through the judge before execution.` |
 | [`inspect-and-finish-pr`](inspect-and-finish-pr/) | `$inspect-and-finish-pr review this PR, resolve actionable feedback, and verify it. Leave merging for my approval. PR: <URL>` |
 | [`build-from-product-idea`](build-from-product-idea/) | `$build-from-product-idea help me build a client intake form in this repo. Shape the scope with me, then implement the approved plan and open a verified PR.` |
 | [`debug-with-evidence`](debug-with-evidence/) | `$debug-with-evidence investigate why this CSV import duplicates contacts. Here are the reproduction steps and logs. Diagnose it and propose a fix before implementation.` |
@@ -37,6 +38,7 @@ In Codex CLI or the IDE extension, type `$` to select an installed skill, or inc
 
 | Skill | Status |
 |---|---|
+| [`convene-panel`](convene-panel/) | Ready |
 | [`inspect-and-finish-pr`](inspect-and-finish-pr/) | Ready |
 | [`build-from-product-idea`](build-from-product-idea/) | Ready |
 | [`debug-with-evidence`](debug-with-evidence/) | Ready |
